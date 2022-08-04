@@ -36,7 +36,9 @@ class Youzify_Profile_Custom_Widget {
             $wp_content = $content;
         }
 
-        echo "<div class='" . youzify_generate_class( $widget_class ) . "'>" . $wp_content . '</div>';
+        if ( ! empty( trim( $wp_content ) ) ) {
+            echo "<div class='" . youzify_generate_class( $widget_class ) . "'>" . $wp_content . '</div>';
+        }
 
     }
 

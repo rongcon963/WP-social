@@ -350,10 +350,10 @@ var youzify_load_attachments = false;
 		/**
 		 * Shortcodes Pagination.
 		 */
-		$( '#activity-stream' ).on( 'click', 'li.load-more', function( e ) {
+		$( '.activity-list' ).on( 'click', 'li.load-more', function( e ) {
 
 			if ( $( this ).closest('.youzify-activity-shortcode')[0] ) {
-
+alert('test');
 				// Stop Propagation.
 				e.stopImmediatePropagation();
 

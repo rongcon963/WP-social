@@ -1,7 +1,7 @@
 === ExS ===
 Contributors: exs
 Tags: blog, e-commerce, news, buddypress, custom-background, custom-colors, custom-logo, custom-menu, custom-header, editor-style, featured-images, footer-widgets, full-width-template, sticky-post, theme-options, threaded-comments, block-styles, wide-blocks, left-sidebar, right-sidebar, one-column, two-columns, grid-layout, microformats, post-formats, translation-ready
-Tested up to: 5.9
+Tested up to: 6.0
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Requires at least: 5.5
@@ -53,6 +53,41 @@ License: CC0 1.0 Universal (CC0 1.0)
 Source: https://exsthemewp.com/free-images/
 
 == Changelog ==
+
+= 1.9.8, July 8, 2022 =
++ New Bottom Image Customizer panel to set background image for the bottom of the website
++ More blog grid layouts (10+ new layouts)
++ New search modal type styles option in the Customizer - ExS Theme Options - Theme Layout section
++ New main menu decoration for large screens
++ PRO only - new skin added
+* Search block button now inherits global buttons settings
+* Minor bug and style fixes
+
+= 1.9.7, June 30, 2022 =
++ Single post table of contents is now wrapped in the DIV instead of ASIDE tag for SEO purposes
++ New Customizer option to enable indention of Table of Content depending on the Heading size.
+* Option to enable .wp-container styles (for WP6.0+) before closing BODY tag by default is enabled by default - needed for buttons, galleries, social icons etc.
+* PRO only - fixes for deprecation notices in PHP 8.1+
+* PRO only - additional options for columns and groups are loaded in the sidebar on the new block editor widgets screen
+* Minor bug and style fixes
+
+= 1.9.6, June 16, 2022 =
++ Disable .wp-container styles (for WP6.0+) before closing BODY tag by default, new option to enable them in the Customizer. CSS file size reduced
++ Breaking change for columns block spacing - switch to gap CSS property from margin-left for columns block - as WP6.0 also make this switch
++ PRO only - ability to remove additional animation controls for Gutenberg block editor blocks, because some custom blocks cannot extend their properties
+* Fix - if search is the only element in the intro section - it will be shown
+* Minor bug and style fixes
+
+= 1.9.5, May 27, 2022 =
++ New search results feed layouts - same as for blog archives
++ New blog archive layout - side post meta
++ New Customizer options for customize post meta font size, font weight and text transform for blog, single post and search results (Some of them may be overridden by child themes or theme skins)
++ New Customizer options for customize related posts section on a single post page (Some of them may be overridden by child themes or theme skins)
++ New Customizer options for comments section for a single post page. (Some of them may be overridden by child themes or theme skins)
+* Default inverse color scheme now works for child themes
+
+= 1.9.4, May 5, 2022 =
+* ExS Pro only - fix process from the free to the pro theme version migration
 
 = 1.9.3, May 5, 2022 =
 + Read progress bar for single post added

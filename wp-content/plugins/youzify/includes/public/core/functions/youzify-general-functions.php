@@ -963,3 +963,24 @@ function youzify_get_directory_header( $directory, $args = null ) {
 
     <?php
 }
+
+/**
+ * Sanitize Array.
+ * */
+function youzify_sanitize_array( &$array ) {
+
+    if ( empty( $array ) ) {
+        return $array;
+    }
+
+    foreach ( $array as &$value) {
+        if ( ! is_array( $value ) )    {
+            $value = sanitize_text_field( $value );
+        }  else {
+            youzify_sanitize_array( $value );
+        }
+    }
+
+    return $array;
+
+}

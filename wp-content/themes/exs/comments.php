@@ -23,9 +23,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( post_password_required() ) {
 	return;
 }
+
+//new since v1.9.5
+$mt        = exs_option( 'blog_single_comments_mt' );
+$mb        = exs_option( 'blog_single_comments_mb' );
+$bg        = exs_option( 'blog_single_comments_background' );
+$section   = exs_option( 'blog_single_comments_section' ) ? 'section' : '';
+if ( $bg && ! $section ) {
+	$bg .= ' extra-padding';
+}
+$pt        = exs_option( 'blog_single_comments_pt' );
+$pb        = exs_option( 'blog_single_comments_pb' );
+
 ?>
 
-<div id="comments" class="comments-area">
+<div id="comments" class="comments-area <?php echo esc_attr( $mt . ' ' . $mb . ' ' . $bg . ' ' . $section . ' ' . $pt . ' ' . $pb ); ?>">
 
 	<?php
 	// You can start editing here -- including this comment!

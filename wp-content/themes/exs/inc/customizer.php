@@ -38,6 +38,13 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'priority'        => 55,
 					'active_callback' => '',
 				),
+				'panel_bottom_image'                  => array(
+					'type'            => 'section',
+					'label'           => esc_html__( 'Bottom Image', 'exs' ),
+					'description'     => esc_html__( 'Site bottom background image. This image will be displayed as a background for the Top Footer Section, Footer and Copyright sections', 'exs' ),
+					'priority'        => 75,
+					'active_callback' => '',
+				),
 				////////////////////////
 				//registering sections//
 				////////////////////////
@@ -1265,6 +1272,13 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'corner' => esc_html__( 'Corner page preloader', 'exs' ),
 					),
 				),
+				'box_fade_in'                           => array(
+					'type'     => 'checkbox',
+					'section'  => 'section_layout',
+					'label'    => esc_html__( 'Fade in page on load', 'exs' ),
+					'default'  => esc_html( exs_option( 'box_fade_in', '' ) ),
+					'priority' => 200,
+				),
 				'widgets_ul_margin'                   => array(
 					'type'        => 'slider',
 					'section' => 'section_layout',
@@ -1276,12 +1290,19 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'step'        => '0.05',
 					),
 				),
-				'box_fade_in'                           => array(
-					'type'     => 'checkbox',
+				'search_modal'                             => array(
+					'type'     => 'select',
 					'section'  => 'section_layout',
-					'label'    => esc_html__( 'Fade in page on load', 'exs' ),
-					'default'  => esc_html( exs_option( 'box_fade_in', '' ) ),
+					'label'    => esc_html__( 'Search Modal Type', 'exs' ),
+					'default'  => esc_html( exs_option( 'search_modal', '' ) ),
 					'priority' => 200,
+					'choices'  => array(
+						''  => esc_html__( 'Default', 'exs' ),
+						'1' => esc_html__( 'Full Screen', 'exs' ),
+						'2' => esc_html__( 'Full Screen Dark', 'exs' ),
+						'3' => esc_html__( 'Half Screen Big', 'exs' ),
+						'4' => esc_html__( 'Half Screen Big Dark', 'exs' ),
+					),
 				),
 				'assets_lightbox'                            => array(
 					'type'            => 'checkbox',
@@ -1341,6 +1362,13 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'label'           => esc_html__( 'Disable WP5.9+ SVG inline code for duotones', 'exs' ),
 					'description'     => esc_html__( 'If you want to remove default SVG for duotones that WordPress 5.9+ prints then check this checkbox', 'exs' ),
 					'default'         => esc_html( exs_option( 'remove_wp_default_duotone_svg', false ) ),
+				),
+				'enable_wp_default_footer_container_styles'         => array(
+					'type'            => 'checkbox',
+					'section'         => 'section_layout',
+					'label'           => esc_html__( 'Enable WP5.9+ Footer container CSS styles', 'exs' ),
+					'description'     => esc_html__( 'Starting from WP verison 5.9 WordPress prints STYLE tag before closing BDOY tag which is not a valid HTML markup. If you want to enable these STYLE tags check this checkbox', 'exs' ),
+					'default'         => esc_html( exs_option( 'enable_wp_default_footer_container_styles', false ) ),
 				),
 				///////////
 				//buttons//
@@ -1764,6 +1792,47 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'step'        => '1',
 					),
 				),
+				////////////////
+				//bottom image//
+				////////////////
+				//bottom image options
+				//section 'bottom_image'
+				'bottom_background_image'               => array(
+					'type'    => 'image',
+					'section' => 'panel_bottom_image',
+					'label'   => esc_html__( 'Site Bottom Background Image', 'exs' ),
+					'default' => esc_html( exs_option( 'bottom_background_image', '' ) ),
+				),
+				'bottom_background_image_cover'   => array(
+					'type'    => 'checkbox',
+					'section' => 'panel_bottom_image',
+					'label'   => esc_html__( 'Cover background image', 'exs' ),
+					'default' => esc_html( exs_option( 'bottom_background_image_cover', false ) ),
+				),
+				'bottom_background_image_fixed'   => array(
+					'type'    => 'checkbox',
+					'section' => 'panel_bottom_image',
+					'label'   => esc_html__( 'Fixed background image', 'exs' ),
+					'default' => esc_html( exs_option( 'bottom_background_image_fixed', false ) ),
+				),
+				'bottom_background_image_overlay' => array(
+					'type'    => 'select',
+					'section' => 'panel_bottom_image',
+					'label'   => esc_html__( 'Overlay for background image', 'exs' ),
+					'default' => esc_html( exs_option( 'bottom_background_image_overlay', '' ) ),
+					'choices' => exs_customizer_background_overlay_array(),
+				),
+				'bottom_background_image_overlay_opacity' => array(
+					'type'        => 'slider',
+					'label'       => esc_html__( 'Overlay Opacity', 'exs' ),
+					'default'     => esc_html( exs_option( 'bottom_background_image_overlay_opacity', '' ) ),
+					'section'     => 'panel_bottom_image',
+					'atts'        => array(
+						'min'         => '1',
+						'max'         => '99',
+						'step'        => '1',
+					),
+				),
 				//main menu
 				'header_menu_options_heading_desktop'        => array(
 					'type'        => 'block-heading',
@@ -1807,6 +1876,7 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'1' => esc_html__( 'Vertical flip', 'exs' ),
 						'2' => esc_html__( 'Animated pills', 'exs' ),
 						'3' => esc_html__( 'Half height underline', 'exs' ),
+						'4' => esc_html__( 'Corners Decor', 'exs' ),
 					),
 				),
 
@@ -3774,6 +3844,30 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						),
 					),
 				),
+				'blog_meta_font_size'                            => array(
+					'type'    => 'slider',
+					'section' => 'section_blog',
+					'label'   => esc_html__( 'Post meta font size', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_meta_font_size', '' ) ),
+					'description' => esc_html__( 'Value in pixels', 'exs' ),
+					'atts'        => array(
+						'min'         => '10',
+						'max'         => '20',
+						'step'        => '1',
+					),
+				),
+				'blog_meta_bold'                        => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog',
+					'label'   => esc_html__( 'Bold meta font weight', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_meta_bold', '' ) ),
+				),
+				'blog_meta_uppercase'                        => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog',
+					'label'   => esc_html__( 'Uppercase font meta', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_meta_uppercase', '' ) ),
+				),
 
 
 				////////
@@ -3871,7 +3965,7 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'type'        => 'block-heading',
 					'section'     => 'section_blog_post',
 					'label'       => esc_html__( 'Related posts settings', 'exs' ),
-					'description' => esc_html__( 'Related posts are based on post tags', 'exs' ),
+					'description' => esc_html__( 'Some of related posts options may be overridden by child themes and theme skins.', 'exs' ),
 				),
 				'blog_single_related_posts'             => array(
 					'type'    => 'select',
@@ -3942,12 +4036,107 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 					'default' => esc_html( exs_option( 'blog_single_related_posts_hidden', '' ) ),
 					'choices' => exs_customizer_responsive_display_array(),
 				),
+				'blog_single_related_posts_mt'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Related posts top margin', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_related_posts_mt', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'mt-0'  => '0',
+						'mt-05' => '0.5em',
+						'mt-1'  => '1em',
+						'mt-15' => '1.5em',
+						'mt-2'  => '2em',
+						'mt-3'  => '3em',
+						'mt-4'  => '4em',
+						'mt-5'  => '5em',
+					),
+				),
+				'blog_single_related_posts_mb'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Related posts bottom margin', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_related_posts_mb', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'mb-0'  => '0',
+						'mb-05' => '0.5em',
+						'mb-1'  => '1em',
+						'mb-15' => '1.5em',
+						'mb-2'  => '2em',
+						'mb-3'  => '3em',
+						'mb-4'  => '4em',
+						'mb-5'  => '5em',
+					),
+				),
+				'blog_single_related_posts_background'           => array(
+					'type'    => 'color-radio',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Related posts background', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_related_posts_background', false ) ),
+					'choices' => exs_customizer_backgrounds_array(),
+				),
+				'blog_single_related_posts_section'           => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Display related posts as separate section', 'exs' ),
+					'description' => esc_html__( 'Useful if background color is selected and no main sidebar is displayed.', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_related_posts_section', false ) ),
+				),
+				'blog_single_related_posts_pt'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Related posts top padding', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_related_posts_pt', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'pt-0'  => esc_html__( '0', 'exs' ),
+						'pt-1'  => esc_html__( '1em', 'exs' ),
+						'pt-2'  => esc_html__( '2em', 'exs' ),
+						'pt-3'  => esc_html__( '3em', 'exs' ),
+						'pt-4'  => esc_html__( '4em', 'exs' ),
+						'pt-5'  => esc_html__( '5em', 'exs' ),
+						'pt-6'  => esc_html__( '6em', 'exs' ),
+						'pt-7'  => esc_html__( '7em', 'exs' ),
+						'pt-8'  => esc_html__( '8em', 'exs' ),
+						'pt-9'  => esc_html__( '9em', 'exs' ),
+						'pt-10' => esc_html__( '10em', 'exs' ),
+					),
+				),
+				'blog_single_related_posts_pb'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Related posts bottom padding', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_related_posts_pb', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'pb-0'  => esc_html__( '0', 'exs' ),
+						'pb-1'  => esc_html__( '1em', 'exs' ),
+						'pb-2'  => esc_html__( '2em', 'exs' ),
+						'pb-3'  => esc_html__( '3em', 'exs' ),
+						'pb-4'  => esc_html__( '4em', 'exs' ),
+						'pb-5'  => esc_html__( '5em', 'exs' ),
+						'pb-6'  => esc_html__( '6em', 'exs' ),
+						'pb-7'  => esc_html__( '7em', 'exs' ),
+						'pb-8'  => esc_html__( '8em', 'exs' ),
+						'pb-9'  => esc_html__( '9em', 'exs' ),
+						'pb-10' => esc_html__( '10em', 'exs' ),
+					),
+				),
+				'blog_single_related_posts_fullwidth'           => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Full width related posts', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_related_posts_fullwidth', false ) ),
+					'description' => esc_html__( 'Works only if no main sidebar is displayed', 'exs' ),
+				),
 
 				'blog_single_meta_options_heading'      => array(
 					'type'        => 'block-heading',
 					'section'     => 'section_blog_post',
 					'label'       => esc_html__( 'Single post meta options', 'exs' ),
-					'description' => esc_html__( 'Select what post meta you want to show in single post. Not all layouts will show post meta even if it is checked.', 'exs' ),
+					'description' => esc_html__( 'Select what post meta you want to show in single post. Not all layouts will show post meta even if it is checked. Some options may be overridden by child themes and theme skins.', 'exs' ),
 				),
 				'blog_single_hide_meta_icons'           => array(
 					'type'    => 'checkbox',
@@ -4082,6 +4271,127 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						),
 					),
 				),
+				'blog_single_meta_font_size'                            => array(
+					'type'    => 'slider',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Post meta font size', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_meta_font_size', '' ) ),
+					'description' => esc_html__( 'Value in pixels', 'exs' ),
+					'atts'        => array(
+						'min'         => '10',
+						'max'         => '20',
+						'step'        => '1',
+					),
+				),
+				'blog_single_meta_bold'                        => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Bold meta font weight', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_meta_bold', '' ) ),
+				),
+				'blog_single_meta_uppercase'                        => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Uppercase font meta', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_meta_uppercase', '' ) ),
+				),
+				//comments options - since 1.9.5
+				'blog_single_comments_heading'     => array(
+					'type'        => 'block-heading',
+					'section'     => 'section_blog_post',
+					'label'       => esc_html__( 'Comments area settings', 'exs' ),
+					'description' => esc_html__( 'Some comments area options may be overridden by child themes and theme skins', 'exs' ),
+
+				),
+				'blog_single_comments_mt'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Comments area top margin', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_comments_mt', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'mt-0'  => '0',
+						'mt-05' => '0.5em',
+						'mt-1'  => '1em',
+						'mt-15' => '1.5em',
+						'mt-2'  => '2em',
+						'mt-3'  => '3em',
+						'mt-4'  => '4em',
+						'mt-5'  => '5em',
+					),
+				),
+				'blog_single_comments_mb'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Comments area bottom margin', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_comments_mb', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'mb-0'  => '0',
+						'mb-05' => '0.5em',
+						'mb-1'  => '1em',
+						'mb-15' => '1.5em',
+						'mb-2'  => '2em',
+						'mb-3'  => '3em',
+						'mb-4'  => '4em',
+						'mb-5'  => '5em',
+					),
+				),
+				'blog_single_comments_background'           => array(
+					'type'    => 'color-radio',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Comments area background', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_comments_background', false ) ),
+					'choices' => exs_customizer_backgrounds_array(),
+				),
+				'blog_single_comments_section'           => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Display comments area as separate section', 'exs' ),
+					'description' => esc_html__( 'Useful if background color is selected and no main sidebar is displayed. and no main sidebar is displayed.', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_comments_section', false ) ),
+				),
+				'blog_single_comments_pt'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Comments area top padding', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_comments_pt', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'pt-0'  => esc_html__( '0', 'exs' ),
+						'pt-1'  => esc_html__( '1em', 'exs' ),
+						'pt-2'  => esc_html__( '2em', 'exs' ),
+						'pt-3'  => esc_html__( '3em', 'exs' ),
+						'pt-4'  => esc_html__( '4em', 'exs' ),
+						'pt-5'  => esc_html__( '5em', 'exs' ),
+						'pt-6'  => esc_html__( '6em', 'exs' ),
+						'pt-7'  => esc_html__( '7em', 'exs' ),
+						'pt-8'  => esc_html__( '8em', 'exs' ),
+						'pt-9'  => esc_html__( '9em', 'exs' ),
+						'pt-10' => esc_html__( '10em', 'exs' ),
+					),
+				),
+				'blog_single_comments_pb'                    => array(
+					'type'    => 'select',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Comments area bottom padding', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_comments_pb', '' ) ),
+					'choices' => array(
+						''      => esc_html__( 'Default', 'exs' ),
+						'pb-0'  => esc_html__( '0', 'exs' ),
+						'pb-1'  => esc_html__( '1em', 'exs' ),
+						'pb-2'  => esc_html__( '2em', 'exs' ),
+						'pb-3'  => esc_html__( '3em', 'exs' ),
+						'pb-4'  => esc_html__( '4em', 'exs' ),
+						'pb-5'  => esc_html__( '5em', 'exs' ),
+						'pb-6'  => esc_html__( '6em', 'exs' ),
+						'pb-7'  => esc_html__( '7em', 'exs' ),
+						'pb-8'  => esc_html__( '8em', 'exs' ),
+						'pb-9'  => esc_html__( '9em', 'exs' ),
+						'pb-10' => esc_html__( '10em', 'exs' ),
+					),
+				),
+
 				//read progress - since 1.9.3
 				'blog_single_read_progress_heading'      => array(
 					'type'        => 'block-heading',
@@ -4208,6 +4518,12 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'mb-5'  => '5em',
 					),
 				),
+				'blog_single_toc_single_margins'              => array(
+					'type'    => 'checkbox',
+					'section' => 'section_blog_post',
+					'label'   => esc_html__( 'Indent items depending on heading size', 'exs' ),
+					'default' => esc_html( exs_option( 'blog_single_toc_single_margins', false ) ),
+				),
 				//////////
 				//search//
 				//////////
@@ -4228,7 +4544,47 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'side-small 2 masonry'            => esc_html__( 'Side small featured image - 2 columns Masonry', 'exs' ),
 						'title-only'                      => esc_html__( 'Only title (no image, meta and excerpt)', 'exs' ),
 						'title-meta-only'                 => esc_html__( 'Only title and meta (no image and excerpt)', 'exs' ),
+						'default-centered'                => esc_html__( 'Center aligned', 'exs' ),
+						'meta-above-title'                => esc_html__( 'Meta above title', 'exs' ),
+						'meta-above-title 2'              => esc_html__( 'Meta above title - 2 columns', 'exs' ),
+						'meta-above-title 3'              => esc_html__( 'Meta above title - 3 columns', 'exs' ),
+						'side-meta'                       => esc_html__( 'Right side featured image', 'exs' ),
+						'side-alter'                      => esc_html__( 'Alteration side image', 'exs' ),
+						'cols 2'                          => esc_html__( 'Grid - 2 columns', 'exs' ),
+						'cols 3'                          => esc_html__( 'Grid - 3 columns', 'exs' ),
+						'cols 4'                          => esc_html__( 'Grid - 4 columns', 'exs' ),
+						'cols-absolute 2'                 => esc_html__( 'Grid - meta overlap - 2 cols', 'exs' ),
+						'cols-absolute 3'                 => esc_html__( 'Grid - meta overlap - 3 cols', 'exs' ),
+						'cols-absolute 4'                 => esc_html__( 'Grid - meta overlap - 4 cols', 'exs' ),
+						'cols-absolute-no-meta 2'         => esc_html__( 'Grid - title overlap - 2 cols', 'exs' ),
+						'cols-absolute-no-meta 3'         => esc_html__( 'Grid - title overlap - 3 cols', 'exs' ),
+						'cols-absolute-no-meta 4'         => esc_html__( 'Grid - title overlap - 4 cols', 'exs' ),
+						'cols-excerpt 2'                  => esc_html__( 'Grid - centered excerpt no meta - 2 cols', 'exs' ),
+						'cols-excerpt 3'                  => esc_html__( 'Grid - centered excerpt no meta - 3 cols', 'exs' ),
+						'cols-excerpt 4'                  => esc_html__( 'Grid - centered excerpt no meta - 4 cols', 'exs' ),
+						'cols 2 masonry'                  => esc_html__( 'Masonry - 2 columns', 'exs' ),
+						'cols 3 masonry'                  => esc_html__( 'Masonry - 3 columns', 'exs' ),
+						'cols 4 masonry'                  => esc_html__( 'Masonry - 4 columns', 'exs' ),
+						'cols-absolute 2 masonry'         => esc_html__( 'Masonry - meta overlap - 2 cols', 'exs' ),
+						'cols-absolute 3 masonry'         => esc_html__( 'Masonry - meta overlap - 3 cols', 'exs' ),
+						'cols-absolute 4 masonry'         => esc_html__( 'Masonry - meta overlap - 4 cols', 'exs' ),
+						'cols-absolute-no-meta 2 masonry' => esc_html__( 'Masonry - title overlap - 2 cols', 'exs' ),
+						'cols-absolute-no-meta 3 masonry' => esc_html__( 'Masonry - title overlap - 3 cols', 'exs' ),
+						'cols-absolute-no-meta 4 masonry' => esc_html__( 'Masonry - title overlap - 4 cols', 'exs' ),
+						'cols-excerpt 2 masonry'          => esc_html__( 'Masonry - centered excerpt no meta - 2 cols', 'exs' ),
+						'cols-excerpt 3 masonry'          => esc_html__( 'Masonry - centered excerpt no meta - 3 cols', 'exs' ),
+						'cols-excerpt 4 masonry'          => esc_html__( 'Masonry - centered excerpt no meta - 4 cols', 'exs' ),
+
+
 					),
+				),
+				'search_layout_gap'                       => array(
+					'type'        => 'select',
+					'section'     => 'section_search',
+					'label'       => esc_html__( 'Search feed layout gap', 'exs' ),
+					'description' => esc_html__( 'Used only for grid and masonry layouts', 'exs' ),
+					'default'     => esc_html( exs_option( 'search_layout_gap', '' ) ),
+					'choices'     => exs_get_feed_layout_gap_options(),
 				),
 				'search_featured_image_size'                       => array(
 					'type'        => 'select',
@@ -4364,6 +4720,89 @@ if ( ! function_exists( 'exs_customizer_settings_array' ) ) :
 						'number' => esc_html__( 'Only comments number', 'exs' ),
 					),
 				),
+				'search_show_date_over_image'                 => array(
+					'type'    => 'image-radio',
+					'section' => 'section_search',
+					'label'   => esc_html__( 'Show date over featured image', 'exs' ),
+					'default' => esc_html( exs_option( 'search_show_date_over_image', false ) ),
+					'choices' => array(
+						''       => array(
+							'label' => esc_html__( 'None', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/none.png',
+						),
+						'top-left'  =>  array(
+							'label' => esc_html__( 'Top Left', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/top-left.png'
+						),
+						'top-right' => array(
+							'label' => esc_html__( 'Top Right', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/top-right.png'
+						),
+						'bottom-left' => array(
+							'label' => esc_html__( 'Bottom Left', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/bottom-left.png'
+						),
+						'bottom-right' =>  array(
+							'label' => esc_html__( 'Bottom Right', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/bottom-right.png'
+						),
+					),
+				),
+				'search_show_categories_over_image'           => array(
+					'type'    => 'image-radio',
+					'section' => 'section_search',
+					'label'   => esc_html__( 'Show categories over featured image', 'exs' ),
+					'default' => esc_html( exs_option( 'search_show_categories_over_image', false ) ),
+					'choices' => array(
+						''       => array(
+							'label' => esc_html__( 'None', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/none.png',
+						),
+						'top-left'  =>  array(
+							'label' => esc_html__( 'Top Left', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/top-left.png'
+						),
+						'top-right' => array(
+							'label' => esc_html__( 'Top Right', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/top-right.png'
+						),
+						'bottom-left' => array(
+							'label' => esc_html__( 'Bottom Left', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/bottom-left.png'
+						),
+						'bottom-right' =>  array(
+							'label' => esc_html__( 'Bottom Right', 'exs' ),
+							'image' => EXS_THEME_URI . '/assets/img/customizer/bottom-right.png'
+						),
+					),
+				),
+
+
+				'search_meta_font_size'                            => array(
+					'type'    => 'slider',
+					'section' => 'section_search',
+					'label'   => esc_html__( 'Post meta font size', 'exs' ),
+					'default' => esc_html( exs_option( 'search_meta_font_size', '' ) ),
+					'description' => esc_html__( 'Value in pixels', 'exs' ),
+					'atts'        => array(
+						'min'         => '10',
+						'max'         => '20',
+						'step'        => '1',
+					),
+				),
+				'search_meta_bold'                        => array(
+					'type'    => 'checkbox',
+					'section' => 'section_search',
+					'label'   => esc_html__( 'Bold meta font weight', 'exs' ),
+					'default' => esc_html( exs_option( 'search_meta_bold', '' ) ),
+				),
+				'search_meta_uppercase'                        => array(
+					'type'    => 'checkbox',
+					'section' => 'section_search',
+					'label'   => esc_html__( 'Uppercase font meta', 'exs' ),
+					'default' => esc_html( exs_option( 'search_meta_uppercase', '' ) ),
+				),
+
 				'search_none_page_heading'                   => array(
 					'type'        => 'block-heading',
 					'section'     => 'section_search',

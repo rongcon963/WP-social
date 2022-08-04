@@ -14,7 +14,8 @@
 #accordion-section-section_presets .accordion-section-title:before,
 #accordion-section-section_infinite_loop .accordion-section-title:before,
 #accordion-section-section_share_buttons .accordion-section-title:before,
-#accordion-section-panel_colors_inverse .accordion-section-title:before {
+#accordion-section-panel_colors_inverse .accordion-section-title:before,
+#accordion-section-panel_bottom_image .accordion-section-title:before {
 	position: absolute;
 	content: 'PRO';
 	right: 44px;
@@ -26,7 +27,8 @@
 	border-radius: 3px;
 }
 #accordion-panel-panel_theme .accordion-section-title:before,
-#accordion-section-panel_colors_inverse .accordion-section-title:before {
+#accordion-section-panel_colors_inverse .accordion-section-title:before,
+#accordion-section-panel_bottom_image .accordion-section-title:before {
 	content: 'ExS';
 }
 

@@ -52,6 +52,8 @@ if (
 	empty( $exs_intro_button_text_first )
 	&&
 	empty( $exs_intro_button_text_second )
+	&&
+	empty( $exs_show_search )
 ) {
 	return;
 }

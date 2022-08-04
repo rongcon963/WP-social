@@ -138,7 +138,7 @@ class Youzify_Admin_Member_Types {
 
         // Save Icon
         if ( isset( $_POST['youzify_type_icon'] ) && ! empty( $_POST['youzify_type_icon'] ) ) {
-            add_term_meta( $result['term_id'], 'youzify_type_icon', $_POST['youzify_type_icon'], true );
+            add_term_meta( $result['term_id'], 'youzify_type_icon', sanitize_text_field( $_POST['youzify_type_icon'] ), true );
         }
     }
 
@@ -163,7 +163,7 @@ class Youzify_Admin_Member_Types {
 
         // Save Right Color
         if ( isset( $_POST['youzify_type_icon'] ) && ! empty( $_POST['youzify_type_icon'] ) ) {
-            update_term_meta( $term_id, 'youzify_type_icon', $_POST['youzify_type_icon'] );
+            update_term_meta( $term_id, 'youzify_type_icon', sanitize_text_field( $_POST['youzify_type_icon'] ) );
         } else {
             delete_term_meta( $term_id, 'youzify_type_icon' );
         }

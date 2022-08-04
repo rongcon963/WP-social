@@ -103,14 +103,16 @@ function youzify_members_directory_members_per_page( $loop ) {
         // Set Per Page.
         $loop['per_page'] =  youzify_option( 'youzify_md_users_per_page', 18 );
 
+        $scope = isset( $_POST['scope'] ) ? sanitize_text_field( $_POST['scope'] ) : '';
+
         // Set Member Types.
-        if ( isset( $_POST['scope'] ) ) {
+        if ( ! empty( $scope ) ) {
 
             // Get Types Singulars
             $member_types = bp_get_member_types( array( 'has_directory' => true ) );
 
-            if (  ! empty( $member_types ) && in_array( $_POST['scope'], $member_types ) ) {
-                $loop['member_type'] = $_POST['scope'];
+            if (  ! empty( $member_types ) && in_array( $scope, $member_types ) ) {
+                $loop['member_type'] = $scope;
             }
 
         }

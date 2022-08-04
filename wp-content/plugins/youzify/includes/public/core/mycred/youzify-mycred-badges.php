@@ -9,7 +9,7 @@ function youzify_mycred_get_user_badges( $user_id = null, $max_badges = 6, $more
 	$user_id = ! empty( $user_id ) ? $user_id : bp_displayed_user_id();
 
 	// Get Ballance
-	$user_badges = mycred_get_users_badges( $user_id );
+	$user_badges = youzify_mycred_get_users_badges( $user_id );
 
 	// Get Badges total
 	$badges_nbr = count( $user_badges );
@@ -117,7 +117,7 @@ function youzify_get_mycred_badges_page_content() {
 	$user_id = ! empty( $user_id ) ? $user_id : bp_displayed_user_id();
 
 	// Get Ballance
-	$user_badges = mycred_get_users_badges( $user_id );
+	$user_badges = youzify_mycred_get_users_badges( $user_id );
 
 	// Get Badges Total
 	$badges_total = isset( $user_badges ) ? count( $user_badges ) : 0;
@@ -184,7 +184,6 @@ function youzify_md_display_user_badges() {
 	if ( ! bp_is_directory() ) {
 		return false;
 	}
-
     // Get badges visibility
     if ( 'off' == youzify_option( 'youzify_enable_cards_mycred_badges', 'on' ) ) {
         return;
@@ -237,7 +236,7 @@ function youzify_mycred_is_user_have_widgets( $widget_visibility, $widget_name )
     }
 
     // Get User Badges.
-    $user_badges = mycred_get_users_badges( bp_displayed_user_id() );
+    $user_badges = youzify_mycred_get_users_badges( bp_displayed_user_id() );
 
     if ( empty( $user_badges ) ) {
         return false;
@@ -247,3 +246,56 @@ function youzify_mycred_is_user_have_widgets( $widget_visibility, $widget_name )
 }
 
 // add_filter( 'youzify_profile_widget_visibility', 'youzify_mycred_is_user_have_widgets', 10, 2 );
+
+if ( ! function_exists( 'youzify_mycred_get_users_badges' ) ) :
+	function youzify_mycred_get_users_badges( $user_id = NULL, $force = false ) {
+
+		if ( $user_id === NULL ) return array();
+
+		// global $mycred_current_account;
+
+		// if ( mycred_is_current_account( $user_id ) && isset( $mycred_current_account->badge_ids ) && $force == false )
+		// 	return $mycred_current_account->badge_ids;
+
+		$badge_ids = mycred_get_user_meta( $user_id, MYCRED_BADGE_KEY . '_ids', '', true );
+		if ( !isset($badge_ids) || $badge_ids == '' || $force ) {
+
+			global $wpdb;
+
+			$badge_ids = array();
+			$query     = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$wpdb->usermeta} WHERE user_id = %d AND meta_key LIKE %s AND meta_key NOT LIKE '%_issued_on' AND meta_key NOT LIKE '%_ids'", $user_id, mycred_get_meta_key( MYCRED_BADGE_KEY ) . '%' ) );
+
+			if ( ! empty( $query ) ) {
+
+				foreach ( $query as $badge ) {
+
+					$badge_id = str_replace( MYCRED_BADGE_KEY, '', $badge->meta_key );
+					if ( $badge_id == '' ) continue;
+
+					$badge_id = absint( $badge_id );
+					if ( ! array_key_exists( $badge_id, $badge_ids ) )
+						$badge_ids[ $badge_id ] = absint( $badge->meta_value );
+
+				}
+
+				mycred_update_user_meta( $user_id, MYCRED_BADGE_KEY . '_ids', '', $badge_ids );
+
+			}
+
+		}
+
+		$clean_ids = array();
+		if ( ! empty( $badge_ids ) ) {
+			foreach ( $badge_ids as $id => $level ) {
+
+				$id = absint( $id );
+				if ( $id === 0 || strlen( $level ) < 1 ) continue;
+				$clean_ids[ $id ] = absint( $level );
+
+			}
+		}
+
+		return apply_filters( 'youzify_mycred_get_users_badges', $clean_ids, $user_id );
+
+	}
+endif;

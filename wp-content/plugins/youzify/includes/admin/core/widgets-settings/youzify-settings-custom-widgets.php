@@ -177,18 +177,18 @@ function youzify_get_custom_widgets_list() {
             $display_padding = $data['display_padding'];
 
             // Get Field Name.
-            $input_name = "youzify_custom_widgets[$widget]";
+            $input_name = esc_attr( "youzify_custom_widgets[$widget]" );
 
             ?>
 
             <!-- Widget Item -->
-            <li class="youzify-custom-widget-item" data-widget-name="<?php echo $widget;?>">
-                <h2 class="youzify-custom-widget-name"><i class="youzify-custom-widget-icon <?php echo $icon; ?>"></i><span><?php echo $name; ?></span></h2>
-                <input type="hidden" name="<?php echo $input_name; ?>[icon]" value="<?php echo $icon; ?>">
-                <input type="hidden" name="<?php echo $input_name; ?>[display_title]" value="<?php echo $display_title; ?>">
-                <input type="hidden" name="<?php echo $input_name; ?>[display_padding]" value="<?php echo $display_padding; ?>">
-                <input type="hidden" name="<?php echo $input_name; ?>[name]" value="<?php echo $name; ?>">
-                <input type="hidden" name="<?php echo $input_name; ?>[content]" value="<?php echo $content; ?>">
+            <li class="youzify-custom-widget-item" data-widget-name="<?php echo esc_attr( $widget );?>">
+                <h2 class="youzify-custom-widget-name"><i class="youzify-custom-widget-icon <?php echo $icon; ?>"></i><span><?php echo esc_html( $name ); ?></span></h2>
+                <input type="hidden" name="<?php echo $input_name; ?>[icon]" value="<?php echo esc_attr($icon); ?>">
+                <input type="hidden" name="<?php echo $input_name; ?>[display_title]" value="<?php echo esc_attr($display_title); ?>">
+                <input type="hidden" name="<?php echo $input_name; ?>[display_padding]" value="<?php echo esc_attr( $display_padding ); ?>">
+                <input type="hidden" name="<?php echo $input_name; ?>[name]" value="<?php echo esc_attr( $name ); ?>">
+                <input type="hidden" name="<?php echo $input_name; ?>[content]" value="<?php echo esc_attr( $content ); ?>">
                 <a class="youzify-edit-item youzify-edit-custom-widget"></a>
                 <a class="youzify-delete-item youzify-delete-custom-widget"></a>
             </li>

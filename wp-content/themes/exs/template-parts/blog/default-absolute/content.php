@@ -16,7 +16,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 $exs_has_thumbnail = exs_has_post_thumbnail();
 $exs_css_class     = ( ! $exs_has_thumbnail ) ? 'no-post-thumbnail content-absolute-no-image' : 'content-absolute';
 
+$args = ! empty( $args ) ? $args : array();
+$columns = ! empty( $args['columns'] );
+
+if ( $columns ) :
 ?>
+<div class="grid-item">
+<?php endif; //columns ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> itemtype="https://schema.org/Article" itemscope="itemscope">
 	<?php
 	if ( ! empty( $exs_has_thumbnail ) ) :
@@ -115,3 +121,7 @@ $exs_css_class     = ( ! $exs_has_thumbnail ) ? 'no-post-thumbnail content-absol
 
 	<?php endif; //has_thumbnail ?>
 </article><!-- #post-<?php the_ID(); ?> -->
+<?php if ( $columns ) : ?>
+	</div><!--.grid-item-->
+<?php endif; //columns ?>
+

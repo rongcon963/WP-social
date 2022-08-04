@@ -4,8 +4,8 @@ Tags: buddypress, woocommerce, membership, community, user profile, bbpress, soc
 Donate link: https://www.paypal.me/KaineLabs
 Requires at least: 4.9
 Requires PHP: 5.6
-Tested up to: 5.8
-Stable tag: 1.1.9
+Tested up to: 6.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ The best BuddyPress plugin for building online communities, user profile, social
 
 **Welcome to a New Era of WordPress Communities and User Profiles!**
 
-<blockquote><a href="https://1.envato.market/LGqEL">[ATTENTION] Next Youzify PRO Price Increase is By 31 March 2022, Get Your Lifetime Youzify Pro Version at CodeCanyon for only $60 BEFORE THE PRICE GOES UP!</a></blockquote>
+<blockquote><a href="https://1.envato.market/LGqEL">[ATTENTION] Next Youzify PRO Price Increase will be SOON, Secure Your Lifetime Youzify Pro Version at CodeCanyon for only $62 BEFORE THE PRICE GOES UP!</a></blockquote>
 
 <a href="https://youzify.com/">[Live Demo] Check out our live demo, it's a whole new world!</a>
 
@@ -531,3 +531,9 @@ Fix - Members Directory reviews not showing up after filter in some sites.
 
 = 1.1.9 - 2022-03-25 =
 Fix - Activity images lightbox disabled scroll
+
+= 1.2.0 - 2022-06-10 =
+Fix - Media Pagination Security Improvements
+
+= 1.2.1 - 2022-07-21 =
+Fix - Fix MyCred Issue

@@ -124,6 +124,16 @@ if ( ! function_exists( 'exs_enqueue_static' ) ) :
 			}
 		}
 
+		//search modal type
+		$search_type = exs_option( 'search_modal', '');
+		if ( ! empty( $search_type ) && (int) $search_type > 1 ) {
+			wp_enqueue_style( 'exs-search-type-style', EXS_THEME_URI . '/assets/css/' . $min . 'search-type' . (int) $search_type . '.css', array( 'exs-style' ), EXS_THEME_VERSION );
+		} else {
+			if ( is_customize_preview() ) {
+				wp_enqueue_style( 'exs-search-type-style', EXS_THEME_URI . '/assets/css/' . $min . 'search-type0.css', array( 'exs-style' ), EXS_THEME_VERSION );
+			}
+		}
+
 		//Woo styles
 		if ( class_exists( 'WooCommerce' ) ) {
 			wp_enqueue_style( 'exs-shop-style', EXS_THEME_URI . '/assets/css/' . $min . 'shop.css', array( 'exs-style' ), EXS_THEME_VERSION );
@@ -222,13 +232,20 @@ if ( ! function_exists( 'exs_enqueue_static' ) ) :
 					'colorDarkMuted'  => exs_option( 'colorDarkMuted' ),
 				),
 				'dark'  => array(
-					'colorLight'      => exs_option( 'colorLightInverse' ),
-					'colorFont'       => exs_option( 'colorFontInverse' ),
-					'colorFontMuted'  => exs_option( 'colorFontMutedInverse' ),
-					'colorBackground' => exs_option( 'colorBackgroundInverse' ),
-					'colorBorder'     => exs_option( 'colorBorderInverse' ),
-					'colorDark'       => exs_option( 'colorDarkInverse' ),
-					'colorDarkMuted'  => exs_option( 'colorDarkMutedInverse' ),
+					// 'colorLightInverse' => '#0a0a0a',
+					// 'colorFontInverse' => '#d8d8d8',
+					// 'colorFontMutedInverse' => '#aaaaaa',
+					// 'colorBackgroundInverse' => '#161616',
+					// 'colorBorderInverse' => '#3a3a3a',
+					// 'colorDarkInverse' => '#dbdbdb',
+					// 'colorDarkMutedInverse' => '#ffffff',
+					'colorLight'      => exs_option( 'colorLightInverse', '#0a0a0a' ),
+					'colorFont'       => exs_option( 'colorFontInverse', '#d8d8d8' ),
+					'colorFontMuted'  => exs_option( 'colorFontMutedInverse', '#aaaaaa' ),
+					'colorBackground' => exs_option( 'colorBackgroundInverse', '#161616' ),
+					'colorBorder'     => exs_option( 'colorBorderInverse', '#3a3a3a' ),
+					'colorDark'       => exs_option( 'colorDarkInverse', '#dbdbdb' ),
+					'colorDarkMuted'  => exs_option( 'colorDarkMutedInverse', '#ffffff' ),
 				),
 			));
 		endif;

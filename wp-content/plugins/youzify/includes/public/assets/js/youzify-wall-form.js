@@ -226,6 +226,9 @@
 		            	form.find( '.youzify-wall-textarea' ).get( 0 ).Youzify_emojioneArea.setText( '' );
 		            }
 
+		            // Clear Location Plugin Fields
+		            form.find( '.bp-checkins input[type="hidden"]' ).val( '' );
+
 		            // Reset Tagged Users Form.
 		            form.find( '.youzify-tagged-user .youzify-tagusers-delete-user, .youzify-list-delete-item, .youzify-list-close-icon' ).trigger( 'click' );
 
@@ -780,8 +783,8 @@
 			}
 
 			var target = $( this ), form, content, form_parent, comment_id, form_id, tmp_id, ajaxdata, ak_nonce,
-			new_count,show_all_a, old_icon;
-
+			new_count,show_all_a, old_icon,activity;
+			activity = target.closest('.activity');
 			target.addClass( 'loading' );
 			old_icon = target.find( 'i' ).attr( 'class' );
 			target.find( 'i' ).attr( 'class', 'fas fa-spinner fa-spin' );
@@ -799,10 +802,10 @@
 					comment_id = form_id[2];
 				}
 
-				content = $( '#' + form.attr('id') + ' textarea' );
+				content = activity.find( '#' + form.attr('id') + ' textarea' );
 
 				/* Hide any error messages */
-				$( '#' + form.attr('id') + ' div.error').hide();
+				activity.find( '#' + form.attr('id') + ' div.error').hide();
 				target.addClass('loading').prop('disabled', true);
 				content.addClass('loading').prop('disabled', true);
 
@@ -847,7 +850,7 @@
 							form.children('textarea').val('');
 							activity_comments.parent().addClass('has-comments');
 						} );
-						$( '#' + form.attr('id') + ' textarea').val('');
+						activity.find( '#' + form.attr('id') + ' textarea').val('');
 
 						/* Increase the "Reply (X)" button count */
 						new_count = Number( $('#activity-' + form_id[2] + ' a.acomment-reply span').html() ) + 1;

@@ -308,6 +308,12 @@ if ( ! function_exists( 'exs_setup' ) ) :
 			remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
 		}
 
+		//remove default STYLE tags for .wp-container- auto class WP >= 5.8
+		if ( empty( get_theme_mod( 'enable_wp_default_footer_container_styles', '1' ) ) ) {
+			remove_action( 'render_block', 'wp_render_layout_support_flag', 10, 2 );
+		}
+
+
 		//starter content
 		if ( is_customize_preview() && get_option( 'fresh_site' ) ) {
 			require EXS_THEME_PATH . '/inc/starter-content.php';

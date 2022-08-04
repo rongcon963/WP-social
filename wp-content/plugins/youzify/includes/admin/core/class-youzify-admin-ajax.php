@@ -26,17 +26,8 @@ class Youzify_Admin_Ajax {
 		// Include Styles.
         require_once YOUZIFY_CORE . 'class-youzify-styling.php';
 
-    	// Sanitize Fields.
-    	array_walk_recursive( $_POST['youzify_options'], function( &$value, $key ) {
-    		if ( in_array( $key, array( 'youzify_global_custom_styling', 'youzify_profile_custom_styling', 'youzify_account_custom_styling', 'youzify_groups_custom_styling', 'youzify_members_directory_custom_styling', 'youzify_groups_directory_custom_styling', 'youzify_activity_custom_styling', 'youzify_profile_404_desc' ) ) ) {
-	            $value = sanitize_textarea_field( $value );
-    		} else {
-	            $value = sanitize_text_field( $value );
-    		}
-        });
-
 	    // Youzify Panel Options
-	    $options = isset( $_POST['youzify_options'] ) ? $_POST['youzify_options'] : null;
+	    $options = isset( $_POST['youzify_options'] ) && is_array( $_POST['youzify_options'] ) ? $this->sanitize_youzify_options( $_POST['youzify_options'] ) : null;
 
 	    // Save Options
 	    if ( $options ) {
@@ -270,10 +261,7 @@ class Youzify_Admin_Ajax {
 
 	    if ( isset( $_POST['youzify_profile_tabs'] ) ) {
 
-	    	// Sanitize Fields.
-	    	array_walk_recursive( $_POST['youzify_profile_tabs'], function( &$value ) {
-	            $value = sanitize_text_field( $value );
-	        });
+	    	$profile_tabs = youzify_sanitize_array( $_POST['youzify_profile_tabs']);
 
 			$tabs = array();
 			$old_tabs = youzify_get_profile_primary_nav();
@@ -281,9 +269,9 @@ class Youzify_Admin_Ajax {
 
 			foreach ( $old_tabs as $old_tab ) {
 
-				if ( isset( $_POST['youzify_profile_tabs'][ $old_tab['slug'] ] ) ) {
+				if ( isset( $profile_tabs[ $old_tab['slug'] ] ) ) {
 
-					$new_tab = $_POST['youzify_profile_tabs'][ $old_tab['slug'] ];
+					$new_tab = $profile_tabs[ $old_tab['slug'] ];
 
 					if ( ! empty( $new_tab['position'] ) && $new_tab['position'] != $old_tab['position'] && is_numeric( $new_tab['position'] ) ) {
 						$tabs[ $old_tab['slug'] ]['position'] = $new_tab['position'];
@@ -675,12 +663,9 @@ class Youzify_Admin_Ajax {
 
 			check_ajax_referer( 'youzify-settings-data', 'security' );
 
-			// Sanitize Fields.
-	    	array_walk_recursive( $_POST['youzify_options'], function( &$value ) {
-	            $value = sanitize_text_field( $value );
-	        });
+			$options = youzify_sanitize_array( $_POST['youzify_options'] );
 
-	    	$result = $this->reset_tab_settings( $_POST['youzify_options'] );
+	    	$result = $this->reset_tab_settings( $options );
 
 	    } elseif ( 'all' == $reset_type ) {
 	    	$result = $this->reset_all_settings();
@@ -930,6 +915,22 @@ class Youzify_Admin_Ajax {
 			}
 
         }
+	}
+
+	/**
+	 * Sanitize Youzify Options
+	 **/
+	function sanitize_youzify_options( $options ) {
+
+    	array_walk_recursive( $options, function( &$value, $key ) {
+    		if ( in_array( $key, array( 'youzify_global_custom_styling', 'youzify_profile_custom_styling', 'youzify_account_custom_styling', 'youzify_groups_custom_styling', 'youzify_members_directory_custom_styling', 'youzify_groups_directory_custom_styling', 'youzify_activity_custom_styling', 'youzify_profile_404_desc' ) ) ) {
+	            $value = sanitize_textarea_field( $value );
+    		} else {
+	            $value = sanitize_text_field( $value );
+    		}
+        });
+
+        return $options;
 	}
 
 }

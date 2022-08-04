@@ -5,6 +5,7 @@
 
 #box .nav-links .icon-inline .svg-icon svg{
 	fill: var(--colorDarkMuted);
+	color: var(--colorDarkMuted);
 	max-width: 1em;
 	max-height: 1em;
 }

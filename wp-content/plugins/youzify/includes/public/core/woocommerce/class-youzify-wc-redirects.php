@@ -151,7 +151,7 @@ class Youzify_WC_Redirects {
 
                 // Get Order Recieved Slug.
                 if ( isset( $wp->query_vars['order-received'] ) && ! empty( $wp->query_vars['order-received'] ) ) {
-                    $order_key = isset( $_GET['key'] ) ? $_GET['key'] : 0;
+                    $order_key = isset( $_GET['key'] ) ? sanitize_text_field( $_GET['key'] ) : 0;
                     $slug .= '/order-received/' . $wp->query_vars['order-received'] . '/?key=' . $order_key;
                 }
 

@@ -8,6 +8,9 @@
 	height: 44px;
 	font-size: 16px;
 	padding: 0 .5em;
+	background: none;
+	border: none;
+	color: var(--colorDark);
 }
 
 #toggle_inverse .svg-icon{
@@ -57,4 +60,30 @@
 #toggle_inverse.switch-hidden:before,
 #toggle_inverse.switch-hidden:after{
 	display: none;
+}
+
+.i #toggle_inverse{
+	color: var(--colorLight);
+}
+
+.i #toggle_inverse:before,
+.i #toggle_inverse:after{
+	border-color: var(--colorLight);
+}
+
+.i #toggle_inverse:after{
+	background: var(--colorLight);
+}
+
+.i.c #toggle_inverse{
+	color: #fff;
+}
+
+.i.c #toggle_inverse:before,
+.i.c #toggle_inverse:after{
+	border-color: #fff;
+}
+
+.i.c #toggle_inverse:after{
+	background: #fff;
 }

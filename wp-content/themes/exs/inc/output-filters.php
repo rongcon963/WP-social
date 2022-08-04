@@ -275,15 +275,44 @@ if ( ! function_exists( 'exs_filter_the_content_add_toc_in_post' ) ) :
 			$toc_bordered = exs_option( 'blog_single_toc_bordered', '' ) ? ' bordered' : '';
 			$toc_shadow = exs_option( 'blog_single_toc_shadow', '' ) ? ' shadow' : '';
 			$toc_rounded = exs_option( 'blog_single_toc_rounded', '' ) ? ' rounded' : '';
-			$toc_html .= '<aside class="exs-toc ' . esc_attr( $toc_mt . ' ' . $toc_mb . ' ' . $toc_bg . $toc_padding . $toc_bordered . $toc_shadow . $toc_rounded ) . '">';
+			$toc_html .= '<div class="exs-toc ' . esc_attr( $toc_mt . ' ' . $toc_mb . ' ' . $toc_bg . $toc_padding . $toc_bordered . $toc_shadow . $toc_rounded ) . '">';
 			if ( ! empty( $toc_title ) ) {
 				$toc_html .= '<h3 class="exs-toc-title mb-05">' . esc_html ( $toc_title ) . '</h3>';
 			}
 			$toc_html .= '<nav class="exs-toc-nav"><ul class="mb-0">';
-			foreach ( $matches[2] as $title ) {
-				$toc_html .= '<li><a class="exs-toc-item" href="#' .  sanitize_title( $title ) . '">' . $title . '</a></li>';
+			foreach ( $matches[2] as $key => $title ) {
+				$li_class = '';
+				$margin_left = '0';
+				$indent_li = exs_option( 'blog_single_toc_single_margins' );
+
+				if ( stristr( $matches[0][ $key ] , '<h1' ) ) {
+					$li_class = 'toc-li-h1';
+				}
+				if ( stristr( $matches[0][ $key ] , '<h2' ) ) {
+					$li_class = 'toc-li-h2';
+					$margin_left = $indent_li ? '.5' : $indent_li;
+				}
+				if ( stristr( $matches[0][ $key ] , '<h3' ) ) {
+					$li_class = 'toc-li-h3';
+					$margin_left = $indent_li ? '1' : $indent_li;
+				}
+				if ( stristr( $matches[0][ $key ] , '<h4' ) ) {
+					$li_class = 'toc-li-h4';
+					$margin_left = $indent_li ? '1.5' : $indent_li;
+				}
+				if ( stristr( $matches[0][ $key ] , '<h5' ) ) {
+					$li_class = 'toc-li-h5';
+					$margin_left = $indent_li ? '2' : $indent_li;
+				}
+				if ( stristr( $matches[0][ $key ] , '<h6' ) ) {
+					$li_class = 'toc-li-h6';
+					$margin_left = $indent_li ? '2.5' : $indent_li;
+				}
+
+
+				$toc_html .= '<li style="margin-left:' . esc_attr( $margin_left ) . 'em" class="' . esc_attr( $li_class ) . '"><a class="exs-toc-item" href="#' .  sanitize_title( $title ) . '">' . $title . '</a></li>';
 			}
-			$toc_html .= '</ul></nav></aside>';
+			$toc_html .= '</ul></nav></div>';
 		endif; //! empty $h
 		return $toc_html . $html;
 	}

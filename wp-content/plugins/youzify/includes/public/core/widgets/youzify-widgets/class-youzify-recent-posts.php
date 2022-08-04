@@ -10,7 +10,7 @@ class Youzify_Profile_Recent_Posts_Widget {
     	// Get Data .
         $recent_posts = get_posts(
             array(
-                'orderby' => 'date',
+                'orderby' => apply_filters( 'youzify_recent_posts_widget_order_by', 'date' ),
                 'order'   => 'desc',
                 'author'  => bp_displayed_user_id(),
                 'numberposts' => youzify_option( 'youzify_wg_max_rposts', 3 )

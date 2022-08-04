@@ -194,7 +194,7 @@ class Youzify_Wall {
 
 					?>
 
-					<a rel="nofollow" href="<?php echo $item_url; ?>" class="youzify-comment-file">
+					<a rel="nofollow" target="_blank" href="<?php echo $item_url; ?>" class="youzify-comment-file">
 						<span class="youzify-file-icon"><i class="fas fa-download youzify-attachment-file-icon"></i></span>
 						<span class="youzify-wall-file-details">
 							<span class="youzify-wall-file-title"><?php echo youzify_get_filename_excerpt( $data['real_name'], 45 ); ?></span>
@@ -317,18 +317,14 @@ class Youzify_Wall {
         // Back up the global.
         $old_activities_template = $activities_template;
 
+		$activities_template->activity = new BP_Activity_Activity( $activity_id );
+
+        // $->activity = ;
         $show_preview = true;
 
-		if ( bp_has_activities ( 'include=' . $activity_id ) ) {
-			while ( bp_activities() ) {
-				bp_the_activity();
-				if ( ! empty( $activities_template->activity->privacy ) && $activities_template->activity->privacy != 'public' ) {
-					$show_preview = false;
-				}
-			}
-		} else {
-			$show_preview = false;
-		}
+        if ( $this->get_privacy( $activity_id ) != 'public' ) {
+        	$show_preview = false;
+        }
 
 		?>
 
@@ -496,7 +492,7 @@ class Youzify_Wall {
 				<div class="youzify-wall-file-title"><?php echo youzify_get_filename_excerpt( $data['real_name'], 45 ); ?></div>
 				<div class="youzify-wall-file-size"><?php echo youzify_file_format_size( $data['file_size'] ); ?></div>
 			</div>
-			<a rel="nofollow" href="<?php echo $url; ?>" class="youzify-wall-file-download"><i class="fas fa-download"></i><?php _e( 'Download', 'youzify' ); ?></a>
+			<a rel="nofollow" target="_blank" href="<?php echo $url; ?>" class="youzify-wall-file-download"><i class="fas fa-download"></i><?php _e( 'Download', 'youzify' ); ?></a>
 		</div>
 
 		<?php
@@ -588,7 +584,15 @@ class Youzify_Wall {
 
 			if ( isset( $match[0] ) && ! empty( $match[0] ) ) {
 
+				// Get Current Site Domaine
+				$site_domain = parse_url( site_url(), PHP_URL_HOST);
+
 				foreach ( array_unique( $match[0] ) as $link ) {
+
+					// Avoid Self-domain Links
+				    if ( strpos( $link, $site_domain ) !== false ) {
+				        continue;
+				    }
 
 					if ( strpos( $link, '?s=%23' ) !== false ) {
 						continue;

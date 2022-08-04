@@ -588,7 +588,7 @@ class Youzify_Activity_Form {
 			'image' 		=> esc_url_raw( $_POST['url_preview_img'] ),
 			'link'  		=> esc_url_raw( $_POST['url_preview_link'] ),
 			'site'  		=> sanitize_text_field( $_POST['url_preview_site'] ),
-			'description'   => stripslashes( esc_textarea( $_POST['url_preview_desc'] ) ),
+			'description'   => stripslashes( sanitize_textarea_field( $_POST['url_preview_desc'] ) ),
 			'title' 		=> stripslashes( sanitize_text_field( $_POST['url_preview_title'] ) )
 		);
 

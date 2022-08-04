@@ -515,7 +515,9 @@ jq(document).ready( function() {
 			ajaxdata,
 			ak_nonce,
 			show_all_a, new_count,
-			link_href, comment_li, nonce;
+			link_href, comment_li, nonce, activity;
+
+		activity = jq( this ).closest( '.activity' );
 
 		/* Comment / comment reply links */
 		if ( target.hasClass('acomment-reply') || target.parent().hasClass('acomment-reply') ) {
@@ -528,7 +530,8 @@ jq(document).ready( function() {
 
 			a_id = ids[2];
 			c_id = target.attr('href').substr( 10, target.attr('href').length );
-			form = jq( '#ac-form-' + a_id );
+			// alert('heros')
+			form = activity.find( '#ac-form-' + a_id );
 
 			form.css( 'display', 'none' );
 			form.removeClass('root');
@@ -542,9 +545,9 @@ jq(document).ready( function() {
 			});
 
 			if ( ids[1] !== 'comment' ) {
-				jq('#acomment-' + c_id).append( form );
+				activity.find('#acomment-' + c_id).append( form );
 			} else {
-				jq('#activity-' + a_id + ' .activity-comments').append( form );
+				activity.find('#activity-' + a_id + ' .activity-comments').append( form );
 			}
 
 			if ( form.parent().hasClass( 'activity-comments' ) ) {
@@ -556,7 +559,7 @@ jq(document).ready( function() {
 				offset:-100,
 				easing:'swing'
 			} );
-			jq('#ac-form-' + ids[2] + ' textarea').focus();
+			activity.find('#ac-form-' + ids[2] + ' textarea').focus();
 
 			return false;
 		}
@@ -574,10 +577,10 @@ jq(document).ready( function() {
 				comment_id = form_id[2];
 			}
 
-			content = jq( '#' + form.attr('id') + ' textarea' );
+			content = activity.find( '#' + form.attr('id') + ' textarea' );
 
 			/* Hide any error messages */
-			jq( '#' + form.attr('id') + ' div.error').hide();
+			activity.find( '#' + form.attr('id') + ' div.error').hide();
 			target.addClass('loading').prop('disabled', true);
 			content.addClass('loading').prop('disabled', true);
 
@@ -621,7 +624,7 @@ jq(document).ready( function() {
 						form.children('textarea').val('');
 						activity_comments.parent().addClass('has-comments');
 					} );
-					jq( '#' + form.attr('id') + ' textarea').val('');
+					activity.find( '#' + form.attr('id') + ' textarea').val('');
 
 					/* Increase the "Reply (X)" button count */
 					new_count = Number( jq('#activity-' + form_id[2] + ' a.acomment-reply span').html() ) + 1;

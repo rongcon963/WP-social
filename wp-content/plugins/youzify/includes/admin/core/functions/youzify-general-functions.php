@@ -835,7 +835,7 @@ function youzify_special_offer() {
 
         <div class="yzp-contact-us">
             <div class="yzp-hide-contact"><strong>Need help?</strong> <a href="https://youzify.com/contact-us">Contact us</a> or reach us at <strong>admin@kainelabs.com</strong></div>
-            <a href="<?php echo add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ); ?>" class="yzp-hide-offer"><i class="fas fa-times"></i>Hide Offer</a>
+            <a href="<?php echo esc_url( add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ) ); ?>" class="yzp-hide-offer"><i class="fas fa-times"></i>Hide Offer</a>
         </div>
     </div>
 
@@ -869,7 +869,7 @@ function youzify_offer_banner( $show_button = true ) {
 
     <div class="yzp-heading" style="background-image: linear-gradient(
 130deg, #3F51B5 0%, #663BB7 100%);color:#fff;">
-        <a class="yzp-cancel-offer"  href="<?php echo add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ); ?>"><span style="color:#fff;" class="dashicons dashicons-no-alt"></span></a>
+        <a class="yzp-cancel-offer"  href="<?php echo esc_url( add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ) ); ?>"><span style="color:#fff;" class="dashicons dashicons-no-alt"></span></a>
         <div class="yzp-offer-head">
             <div style="margin-bottom: 25px;">
             <span class="position-relative text-nowrap" style="
@@ -878,14 +878,14 @@ function youzify_offer_banner( $show_button = true ) {
     margin-bottom: 25px;
     white-space: nowrap!important;
 ">
-    <img class="position-absolute" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 110%;position: absolute;height:100%;" alt="prop image" src="https://youzify.com/wp-content/uploads//2021/10/yellow-highlight.svg"><span class="position-relative text-nowrap" style="background-color: transparent;letter-spacing: 0px;position: relative;color: #fff;"><span class="position-relative" style="padding:0 15px;color: #000;font-size: 25px;    font-weight: 600;
+    <img class="position-absolute" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 110%;position: absolute;height:100%;" alt="prop image" src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/yellow-highlight.svg'; ?>"><span class="position-relative text-nowrap" style="background-color: transparent;letter-spacing: 0px;position: relative;color: #fff;"><span class="position-relative" style="padding:0 15px;color: #000;font-size: 25px;    font-weight: 600;
     ">A Trully Limited Time Offer</span></span><span style="background-color: transparent; letter-spacing: 0px; white-space: pre-wrap;"></span></span></div>
 
             <!-- <div class="yzp-head-tag">A TRULLY LIMITED TIME OFFER</div> -->
             <div class="yzp-head-title" style="color: #fff952;">Due to the increased value and number of our add-ons, Youzify - All-Access Pass Price Increased!</div>
             <div class="yzp-head-title">Your last chance to save BIG on <span class="position-relative text-nowrap" style="
     position: relative;
-"><img class="position-absolute" style="left: 50%;top: 66%;transform: translate(-50%, -50%);width: 100%;height:100%;position: absolute;" alt="" src="https://youzify.com/wp-content/uploads//2021/10/yellow-underline.svg"><span class="position-relative">Youzify - All-Access Pass</span></span> and get it for a very cheap price.</div>
+"><img class="position-absolute" style="left: 50%;top: 66%;transform: translate(-50%, -50%);width: 100%;height:100%;position: absolute;" alt="" src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/yellow-underline.svg'; ?>"><span class="position-relative">Youzify - All-Access Pass</span></span> and get it for a very cheap price.</div>
             <?php //if ( $show_button ) : ?>
             <div class="yzp-offer-buttons">
                 <a target="_blank" class="yzp-view-offer-details" href="https://youzify.com/youzify-all-access-pass-offer/?utm_campaign=youzify-all-access-pass-2021-offer&utm_medium=top-bar&utm_source=client-site&utm_content=act-now">👉 View Offer Details<span class="dashicons dashicons-arrow-right-alt"></span></a>
@@ -972,7 +972,7 @@ function youzify_pro_version_banner( $show_button = true ) {
 
     <div class="yzp-heading" style="background-image:linear-gradient(
     to right, #403fb5 0%, #ff00d1 100%);color:#fff;">
-    <a class="yzp-cancel-offer"  href="<?php echo add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ); ?>"><span style="color:#fff;" class="dashicons dashicons-no-alt"></span></a>
+    <a class="yzp-cancel-offer"  href="<?php echo esc_url( add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ) ); ?>"><span style="color:#fff;" class="dashicons dashicons-no-alt"></span></a>
     <div class="yzp-offer-head">
     <div style="margin-bottom: 25px;">
     <span class="position-relative text-nowrap" style="
@@ -981,12 +981,12 @@ function youzify_pro_version_banner( $show_button = true ) {
     margin-bottom: 25px;
     white-space: nowrap!important;
     ">
-    <img class="position-absolute" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 110%;position: absolute;height:100%;" alt="prop image" src="https://youzify.com/wp-content/uploads//2021/10/yellow-highlight.svg"><span class="position-relative text-nowrap" style="background-color: transparent;letter-spacing: 0px;position: relative;color: #fff;"><span class="position-relative" style="padding:0 15px;color: #000;font-size: 25px;    font-weight: 600;
+    <img class="position-absolute" style="left: 50%;top: 50%;transform: translate(-50%, -50%);width: 110%;position: absolute;height:100%;" alt="prop image" src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/yellow-highlight.svg'; ?>"><span class="position-relative text-nowrap" style="background-color: transparent;letter-spacing: 0px;position: relative;color: #fff;"><span class="position-relative" style="padding:0 15px;color: #000;font-size: 25px;    font-weight: 600;
     ">ATTENTION: [<span style="color:#ff1e00;"><?php echo sprintf( _n( '%d Day Left', '%d Days Left', $daysleft, 'youzify' ), $daysleft ); ?></span>] Next Youzify Pro Price Increase is by <?php echo $last_date; ?></span></span><span style="background-color: transparent; letter-spacing: 0px; white-space: pre-wrap;"></span></span></div>
 
     <!-- <div class="yzp-head-tag">A TRULLY LIMITED TIME OFFER</div> -->
     <div class="yzp-head-title" style="color: #fff952;">Due to the increased value in our premium version the price will be increased by <?php echo $last_date; ?>!</div>
-    <div class="yzp-head-title">Your last chance to secure <span class="position-relative text-nowrap" style="position: relative;"><img class="position-absolute" style="left: 50%;top: 66%;transform: translate(-50%, -50%);width: 100%;height:100%;position: absolute;font-weight: 600;" alt="" src="https://youzify.com/wp-content/uploads//2021/10/yellow-underline.svg"><span class="position-relative">Youzify PRO for only $60</span></span>. It's only <strong>one-time</strong> payment for <strong>lifetime updates</strong>.</div>
+    <div class="yzp-head-title">Your last chance to secure <span class="position-relative text-nowrap" style="position: relative;"><img class="position-absolute" style="left: 50%;top: 66%;transform: translate(-50%, -50%);width: 100%;height:100%;position: absolute;font-weight: 600;" alt="" src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/yellow-underline.svg'; ?>"><span class="position-relative">Youzify PRO for only $62</span></span>. It's only <strong>one-time</strong> payment for <strong>lifetime updates</strong>.</div>
 
     <a target="_blank" style="margin: 5px 0 35px;" class="yzp-view-offer-details" href="https://1.envato.market/Rqjj9">👉 GO PRO NOW<span class="dashicons dashicons-arrow-right-alt"></span></a>
     <div class="yzo-subhead">What's included in Youzify Pro Version?</div>
@@ -1421,7 +1421,7 @@ function youzify_add_affiliate_banner() {
             margin: 25px 15px 25px 0;
             position: relative;
             display: flex;
-            background: url(https://youzify.com/wp-content/uploads/2021/01/youzify_decor.svg),linear-gradient(to right,#3f51b5,#663bb7) !important;
+            background: url(<?php echo YOUZIFY_ADMIN_ASSETS . 'images/decor.svg'; ?>),linear-gradient(to right,#3f51b5,#663bb7) !important;
             color: #fff;
             padding: 35px 35px 35px 0;
             border-radius: 6px;
@@ -1508,20 +1508,20 @@ function youzify_add_affiliate_banner() {
     <div class="youzify-affiliate-banner">
 
         <div class="youzify-banner-image">
-            <img src="https://youzify.com/wp-content/uploads//2021/04/youzify-site-logo-1.png" alt="" style="display: block; margin: 0 auto 15px; ">
-            <img src="https://youzify.com/wp-content/uploads//2021/04/banner-thumb.png" alt="" style="width: 100%;">
+            <img src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/youzify-site-logo.png'; ?>" alt="" style="display: block; margin: 0 auto 15px; ">
+            <img src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/affiliate-banner.png'; ?>" alt="" style="width: 100%;">
         </div>
 
         <div class="youzify-banner-content">
             <div class="youzify-banner-tag"><svg aria-hidden="true" focusable="false" data-prefix="fad" data-icon="hand-holding-usd" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="svg-inline--fa fa-hand-holding-usd fa-w-18 fa-2x"><g class="fa-group"><path fill="currentColor" d="M564 377L412.78 498a64 64 0 0 1-40 14H16a16 16 0 0 1-16-16v-96a16 16 0 0 1 16-16h55.4l46.5-37.71A117.65 117.65 0 0 1 192 320h160a32 32 0 0 1 32 31.94 31.2 31.2 0 0 1-.46 5.46C381 373.1 366.19 384 350.29 384H272a16 16 0 0 0 0 32h118.28a63.64 63.64 0 0 0 40-14l92.4-73.9c12.4-10 30.8-10.7 42.6 0A32 32 0 0 1 564 377z" class="fa-secondary"></path><path fill="currentColor" d="M329.28 222.4V240c0 8.8-7.77 16-17.26 16h-17.25c-9.48 0-17.25-7.2-17.25-16v-17.7a82.78 82.78 0 0 1-34.28-11.5 11.46 11.46 0 0 1-3.85-15.74 11.64 11.64 0 0 1 2.23-2.66l18.87-17.5c4-3.7 10-4.2 15.2-2a29.62 29.62 0 0 0 11.11 2.2h35.36c5 0 9.06-3.8 9.06-8.4a8.58 8.58 0 0 0-6.58-8.1l-53.91-14.3c-23.93-6.4-43.13-24.7-46.25-47.7-4.31-32 20.48-59.4 53.15-63V16c0-8.8 7.76-16 17.25-16h17.25c9.49 0 17.25 7.2 17.25 16v17.7a82.92 82.92 0 0 1 34.29 11.5 11.48 11.48 0 0 1 1.62 18.4l-18.87 17.5c-4 3.7-10 4.2-15.2 2a29.62 29.62 0 0 0-11.11-2.2h-35.36c-5 0-9.06 3.8-9.06 8.4a8.58 8.58 0 0 0 6.58 8.1l53.91 14.3c23.93 6.4 43.11 24.7 46.24 47.7 4.31 32-20.43 59.4-53.14 63z" class="fa-primary"></path></g></svg>Earn up to <span style=" color: #46e74c; ">$499</span> per referral!</div><br>
-            <div class="youzify-banner-title" style="vertical-align: middle; position: relative; display: inline-flex; "><span style="color: #00ff43; display: block; margin-right: 8px; ">Woohoo!!</span> Introducing Youzify Affiliate Program.<img src="https://cldup.com/_Ns337GtIi.png" style="width: 43px; position: absolute; top: -16px; right: -50px; "></div>
+            <div class="youzify-banner-title" style="vertical-align: middle; position: relative; display: inline-flex; "><span style="color: #00ff43; display: block; margin-right: 8px; ">Woohoo!!</span> Introducing Youzify Affiliate Program.<img src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/celebrate-emoji.png'; ?>" style="width: 43px; position: absolute; top: -16px; right: -50px; "></div>
             <div class="youzify-banner-title">Earn a Generous Aggressive <span style="color: #fbf554; font-weight: 700; margin: 0 5px;"> 50% Commission </span> on Each Sale.</div>
             <div class="youzify-banner-description" style=" margin: 5px 0px 16px; "><?php _e( 'Your efforts are valuable to us! As a partner you deserve no less than half of the income per sale. Turn your trusted recommendations into income and earn 50% commission on every purchase.', 'youzify' ); ?></div>
             <div class="youzify-banner-description" style="margin-bottom: 0; color: #f89043; font-weight: 500; ">Click Button Below and Let's Start a Great Affiliate Partnership TODAY!</div>
-            <a target="_blank" href="https://youzify.com/affiliate/?utm_campaign=youzify-affiliate-program&utm_medium=first-banner&utm_source=client-site&utm_content=join-now" class="youzify-banner-button"><img draggable="false" role="img" class="emoji" alt="👉" src="https://s.w.org/images/core/emoji/13.1.0/svg/1f449.svg"> <span><?php _e( 'Join Today', 'youzify' ); ?></span></a>
+            <a target="_blank" href="https://youzify.com/affiliate/?utm_campaign=youzify-affiliate-program&utm_medium=first-banner&utm_source=client-site&utm_content=join-now" class="youzify-banner-button"><img draggable="false" role="img" class="emoji" alt="👉" src="<?php echo YOUZIFY_ADMIN_ASSETS . 'images/point.svg'; ?>"> <span><?php _e( 'Join Today', 'youzify' ); ?></span></a>
         </div>
 
-        <a href="<?php echo add_query_arg( 'youzify-hide-affiliate-banner', 'true', youzify_get_current_page_url() ); ?>" class="youzify-hide-banner"><span style="color:#fff;text-decoration: none;" class="dashicons dashicons-no-alt"></span></a>
+        <a href="<?php echo esc_url( add_query_arg( 'youzify-hide-affiliate-banner', 'true', youzify_get_current_page_url() ) ); ?>" class="youzify-hide-banner"><span style="color:#fff;text-decoration: none;" class="dashicons dashicons-no-alt"></span></a>
 
     </div>
 

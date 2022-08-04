@@ -2,8 +2,8 @@
 Contributors: wbcomdesigns
 Tags: translation-ready, Block Editor Styles, Blog, Custom Background, Custom Colors, Custom Logo, Custom Menu, Editor Style, Featured Images, Footer Widgets, Full Width Template, One Column, RTL Language Support, Sticky Post, Theme Options, Threaded Comments, Wide Blocks, BuddyPress, Post Formats, Education, E-Commerce, News
 Requires at least: 4.8
-Tested up to: 5.9.3
-Requires PHP: 7.0
+Tested up to: 6.0.1
+Requires PHP: 7.3
 Stable tag: trunk
 License: GNU General Public License v3.0 (or later)
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -97,6 +97,37 @@ Copyright 2013 Klaus Hartl
 Released under the MIT license
 
 == Changelog ==
+= 4.4.0 =
+* Fix: (#445) Managed single profile social network with bb platform
+* Fix: (#441, #442, #443) Managed UI fixes
+* Fix: (#438) Update header user notification code and UI fixes
+* Fix: (#437) Added membership request button in header
+
+= 4.3.9 =
+* Fix: (#436) Update woocommerce pages UI
+* Fix: (#433) Managed single member cover image layout
+* Fix: (#431) - Flush on save customizer setting 
+* Fix: (#431) - update js file to flush local font files
+* Fix: (#431) Added buddyx customizer js file
+* Fix: (#431) Added site performance customizer setting
+
+= 4.3.8 =
+* Fix: (#428) Update buddypress subnav UI
+* Fix: (#428) Update shop page, cart page, mobile navigation UI
+* Fix: (#428) Update blog layouts UI
+* Fix: (#428) Update activity, members, groups, single profile, posts UI
+* Fix: (#428) Update button border radius, register page UI
+* Fix: (#428) Update header menu dropdown, search UI
+* Fix: (#428) Update activity types UI
+* Fix: (#428) Update profile cover icons with bb platform and UI fixes
+
+= 4.3.7 =
+* Fix: Update whats new area form UI with bb platform
+* Fix: (#422) Managed logo with safari browser
+* Fix: Update min.css files regarding webkit browser
+* Fix: (#423) Managed profile completion widget UI with bb platform
+* Fix: Update flag icon with bb platform
+
 = 4.3.6 =
 * Fix: (#419) Managed cover photo reposition buttons style
 * Fix: (#417) Update message UI with bb platform

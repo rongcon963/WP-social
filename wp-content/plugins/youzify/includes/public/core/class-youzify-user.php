@@ -154,11 +154,9 @@ class Youzify_User {
 
 		}
 
-		if ( ! empty( $meta ) ) {
-			echo '<div class="youzify-usermeta"><ul>' . $meta;
-				do_action( 'youzify_get_profile_header_user_meta' );
-			echo '</ul></div>';
-		}
+		echo '<div class="youzify-usermeta"><ul>' . $meta;
+			do_action( 'youzify_get_profile_header_user_meta' );
+		echo '</ul></div>';
 
 		do_action( 'youzify_after_profile_header_user_meta' );
 

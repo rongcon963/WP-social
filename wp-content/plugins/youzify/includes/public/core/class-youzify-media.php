@@ -40,12 +40,12 @@ class Youzify_Media {
 
 		$query = ! isset( $args['query'] ) || $args['query'] == 'data' ? 'm.id, m.media_id, m.item_id, m.data' : 'COUNT(*)';
 
-		$page = isset( $args['page'] ) ? $args['page'] : 1;
+		$page = isset( $args['page'] ) ? absint( sanitize_text_field( $args['page'] ) ): 1;
 
-        $limit = isset( $args['limit'] ) ? $args['limit'] : 9;
+        $limit = isset( $args['limit'] ) ? absint( sanitize_text_field( $args['limit'] ) ): 9;
 
         // Get Offset.
-		$offset = isset( $args['limit'] ) ? ( $page - 1 ) * $args['limit'] : 0;
+		$offset = isset( $limit ) ? ( $page - 1 ) * $limit : 0;
 
 		// Get Activity Types.
 		$type = isset( $args['type'] ) ? $this->get_activity_types( $args['type'] ) : $this->get_activity_types( 'photos' );
@@ -64,14 +64,14 @@ class Youzify_Media {
             }
 
 		} else {
-			$sql .= " m.component = 'groups' AND a.item_id = {$args['group_id']}";
+			$sql .= $wpdb->prepare( " m.component = 'groups' AND a.item_id = %d", $args['group_id'] );
         }
 
         // Get User ID.
-        $user_id = isset( $args['user_id'] ) ? $args['user_id'] : '';
+        $user_id = isset( $args['user_id'] ) ? absint( sanitize_text_field( $args['user_id'] ) ) : '';
 
 		if ( ! empty( $user_id ) ) {
-			$sql .= " AND a.user_id = $user_id";
+			$sql .= $wpdb->prepare( " AND a.user_id = %d", $user_id );
 		}
 
         // Set Privacy.
@@ -83,7 +83,7 @@ class Youzify_Media {
         }
 
         // Hide Spam Posts AND Set posts type.
-        $sql .= " AND a.is_spam = 0 AND a.type IN ($type)";
+        $sql .= " AND a.is_spam = 0 AND a.type IN ( $type )";
 
         // Filter SQL
         $sql = apply_filters( 'youzify_activity_media_sql', $sql );
@@ -94,13 +94,12 @@ class Youzify_Media {
 		} else {
 
     		if ( ! empty( $limit ) ) {
-    			$sql .= " GROUP BY m.id ORDER BY m.id DESC LIMIT $limit";
+    			$sql .= $wpdb->prepare( " GROUP BY m.id ORDER BY m.id DESC LIMIT %d", $limit );
     		}
 
     		if ( ! empty( $offset ) ) {
-    			$sql .= " OFFSET $offset ";
+    			$sql .= $wpdb->prepare( " OFFSET %d", $offset );
     		}
-
 			// Get Result
 			$result = $wpdb->get_results( $sql , ARRAY_A );
 		}

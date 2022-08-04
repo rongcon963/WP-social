@@ -268,6 +268,16 @@ class Component implements Component_Interface {
 				'panel'       => 'site_footer_panel',
 			)
 		);
+
+		// Site Performance.
+		$wp_customize->add_section(
+			'site_performance_section',
+			array(
+				'title'       => esc_html__( 'Site Performance', 'buddyx' ),
+				'priority'    => 11,
+				'description' => '',
+			)
+		);
 	}
 
 	public function add_fields( $fields ) {
@@ -671,7 +681,7 @@ class Component implements Component_Interface {
 			'default'  => array(
 				'font-family'     => 'Open Sans',
 				'variant'         => '500',
-				'font-size'       => '16px',
+				'font-size'       => '14px',
 				'line-height'     => '1.6',
 				'letter-spacing'  => '0.02em',
 				'text-transform'  => 'none',
@@ -937,7 +947,7 @@ class Component implements Component_Interface {
 			'output'   => array(
 				array(
 					'element'  => '.post-meta-category.post-meta-category a, .buddyx-breadcrumbs a, #breadcrumbs a, .pagination .current, .buddypress-wrap .bp-navs li.current a, .buddypress-wrap .bp-navs li.selected a, .buddypress-wrap .bp-navs li:not(.current) a:focus, .buddypress-wrap .bp-navs li:not(.selected) a:focus, nav#object-nav.vertical .selected>a, .bp-single-vert-nav .item-body:not(#group-create-body) #subnav:not(.tabbed-links) li.current a, .buddypress-wrap .main-navs:not(.dir-navs) li.current a, .buddypress-wrap .main-navs:not(.dir-navs) li.selected a, .buddypress-wrap .bp-navs li.selected a:focus, .buddypress-wrap .bp-navs li.current a:focus,
-					.woocommerce nav.woocommerce-pagination ul li span.current, .woocommerce div.product .woocommerce-tabs ul.tabs li.active a, .woocommerce-account .woocommerce-MyAccount-navigation li.woocommerce-MyAccount-navigation-link.is-active a, .media .rtm-tabs li.active a, .buddypress.widget .item-options a.selected,
+					.woocommerce nav.woocommerce-pagination ul li span.current, .woocommerce div.product .woocommerce-tabs ul.tabs li.active a, .woocommerce-account .woocommerce-MyAccount-navigation li.woocommerce-MyAccount-navigation-link.is-active a, .media .rtm-tabs li.active a, .buddypress.widget .item-options a.selected, .woocommerce ul.products li.product .price, .woocommerce div.product p.price, .woocommerce div.product span.price,
 					
                                         .learndash-wrapper .ld-expand-button.ld-button-alternate,
 					.learndash-wrapper .ld-item-list .ld-item-list-item a.ld-item-name:hover,
@@ -976,8 +986,8 @@ class Component implements Component_Interface {
 					'property' => 'color',
 				),
 				array(
-					'element'  => '.buddypress-icons-wrapper .bp-msg sup, .buddypress-icons-wrapper .user-notifications sup, .menu-icons-wrapper .cart sup, .buddypress-wrap .bp-navs li.current a .count, .buddypress-wrap .bp-navs li.dynamic.current a .count, .buddypress-wrap .bp-navs li.selected a .count, .buddypress_object_nav .bp-navs li.current a .count, .buddypress_object_nav .bp-navs li.selected a .count, .buddypress-wrap .bp-navs li.dynamic.selected a .count, .buddypress_object_nav .bp-navs li.dynamic a .count, .buddypress_object_nav .bp-navs li.dynamic.current a .count, .buddypress_object_nav .bp-navs li.dynamic.selected a .count, .bp-navs ul li .count, .buddypress-wrap .bp-navs li.dynamic a .count, .bp-single-vert-nav .bp-navs.vertical li span, .buddypress-wrap .bp-navs li.dynamic a:hover .count, .buddypress_object_nav .bp-navs li.dynamic a:hover .count, .buddypress-wrap .rtm-bp-navs ul li.selected a:hover>span, .buddypress-wrap .rtm-bp-navs ul li.selected a>span, .users-header .bp-member-type,
-                    .woocommerce-account .woocommerce-MyAccount-navigation li.woocommerce-MyAccount-navigation-link.is-active a:after, .woocommerce-account .woocommerce-MyAccount-navigation li.woocommerce-MyAccount-navigation-link a:hover:after, .entry .post-categories a, .woocommerce .widget_price_filter .ui-slider .ui-slider-handle, .woocommerce .widget_price_filter .ui-slider .ui-slider-range,
+					'element'  => '.buddypress-icons-wrapper .bp-msg sup, .buddypress-icons-wrapper .user-notifications sup, .menu-icons-wrapper .cart sup, .buddypress-wrap .bp-navs li.current a .count, .buddypress-wrap .bp-navs li.dynamic.current a .count, .buddypress-wrap .bp-navs li.selected a .count, .buddypress_object_nav .bp-navs li.current a .count, .buddypress_object_nav .bp-navs li.selected a .count, .buddypress-wrap .bp-navs li.dynamic.selected a .count, .buddypress_object_nav .bp-navs li.dynamic a .count, .buddypress_object_nav .bp-navs li.dynamic.current a .count, .buddypress_object_nav .bp-navs li.dynamic.selected a .count, .bp-navs ul li .count, .buddypress-wrap .bp-navs li.dynamic a .count, .bp-single-vert-nav .bp-navs.vertical li span, .buddypress-wrap .bp-navs li.dynamic a:hover .count, .buddypress_object_nav .bp-navs li.dynamic a:hover .count, .buddypress-wrap .rtm-bp-navs ul li.selected a:hover>span, .buddypress-wrap .rtm-bp-navs ul li.selected a>span, .users-header .bp-member-type, .bp-pagination-links span.page-numbers:not(.dots),
+                    .woocommerce-account .woocommerce-MyAccount-navigation li.woocommerce-MyAccount-navigation-link.is-active a:after, .woocommerce-account .woocommerce-MyAccount-navigation li.woocommerce-MyAccount-navigation-link a:hover:after, .entry .post-categories a, .woocommerce .widget_price_filter .ui-slider .ui-slider-handle, .woocommerce .widget_price_filter .ui-slider .ui-slider-range, .woocommerce span.onsale,
                     .llms-progress .progress-bar-complete, body .llms-syllabus-wrapper .llms-section-title,
 					
 					.tribe-events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime:after',
@@ -989,6 +999,7 @@ class Component implements Component_Interface {
 				),
 				array(
 					'element'  => '.buddypress-wrap .bp-navs li.current a, .buddypress-wrap .bp-navs li.selected a, .avatar-history-table td .avatar.selected,
+					.woocommerce div.product .woocommerce-tabs ul.tabs li.active,
                     
                     .llms-student-dashboard .llms-sd-item.current>a, .llms-student-dashboard .llms-sd-item>a:hover,
 					
@@ -1677,6 +1688,56 @@ class Component implements Component_Interface {
 				array(
 					'element'  => '.site-info a:hover',
 					'property' => 'color',
+				),
+			),
+		);
+
+		/**
+		 *  Site Performance
+		 */
+		$fields[] = array(
+			'type'     => 'switch',
+			'settings' => 'site_load_google_font_locally',
+			'label'    => esc_html__( 'Load Google Fonts Locally ?', 'buddyx' ),
+			'section'  => 'site_performance_section',
+			'default'  => '',
+			'choices'  => array(
+				'on'  => esc_html__( 'Enable', 'buddyx' ),
+				'off' => esc_html__( 'Disable', 'buddyx' ),
+			),
+		);
+
+		$fields[] = array(
+			'type'            => 'switch',
+			'settings'        => 'site_preload_local_font',
+			'label'           => esc_html__( 'Preload Local Fonts ?', 'buddyx' ),
+			'section'         => 'site_performance_section',
+			'default'         => '',
+			'choices'         => array(
+				'on'  => esc_html__( 'Enable', 'buddyx' ),
+				'off' => esc_html__( 'Disable', 'buddyx' ),
+			),
+			'active_callback' => array(
+				array(
+					'setting'  => 'site_load_google_font_locally',
+					'operator' => '==',
+					'value'    => 1,
+				),
+			),
+		);
+
+		$fields[] = array(
+			'type'            => 'custom',
+			'settings'        => 'site_flush_local_font',
+			'label'           => esc_html__( 'Flush Local Fonts Cache', 'buddyx' ),
+			'description'     => esc_html__( 'Click the button to reset the local fonts cache.', 'buddyx' ),
+			'section'         => 'site_performance_section',
+			'default'         => '<input type="submit" value="Flush Local Font Files" class="button button-secondary buddyx-flush-font-files">',
+			'active_callback' => array(
+				array(
+					'setting'  => 'site_load_google_font_locally',
+					'operator' => '==',
+					'value'    => 1,
 				),
 			),
 		);

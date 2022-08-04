@@ -54,26 +54,7 @@ if (
 
 endif; //full-width
 
-/**
- * Fires below #main and before #bottom-wrap.
- *
- * @since ExS 1.2.0
- */
-do_action( 'exs_action_before_bottom_wrap' );
-
-//wrapper for top footer, footer and copyright section
-$exs_container_width = exs_option( 'main_container_width', '1140' );
-echo '<div id="bottom-wrap" class="container-' . esc_attr( $exs_container_width ) . '">';
-
-get_template_part( 'template-parts/footer-top/section', exs_template_part( 'footer_top', '' ) );
-
-get_template_part( 'template-parts/footer/footer', exs_template_part( 'footer', '1' ) );
-
-get_template_part( 'template-parts/copyright/copyright', exs_template_part( 'copyright', '1' ) );
-
-get_template_part( 'template-parts/footer/bottom-nav' );
-
-echo '</div><!-- #bottom-wrap -->';
+get_template_part( 'template-parts/bottom-wrap' );
 
 ?>
 </div><!-- #box -->

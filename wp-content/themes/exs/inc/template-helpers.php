@@ -1388,8 +1388,8 @@ if ( ! function_exists( 'exs_post_thumbnail' ) ) :
 			//not is_singular
 		else :
 
-			$show_date = exs_option( 'blog_show_date_over_image' );
-			$show_cats = exs_option( 'blog_show_categories_over_image' );
+			$show_date = is_search() ? exs_option( 'search_show_date_over_image' ) : exs_option( 'blog_show_date_over_image' );
+			$show_cats = is_search() ? exs_option( 'search_show_categories_over_image' ) : exs_option( 'blog_show_categories_over_image' );
 			$image_size_value = is_search() ? exs_option( 'search_featured_image_size', '' ) : exs_option( 'blog_featured_image_size', '' );
 			$image_size = $image_size_value ? $image_size_value : $exs_size;
 			?>
@@ -1409,9 +1409,6 @@ if ( ! function_exists( 'exs_post_thumbnail' ) ) :
 				<?php
 				if ( $show_date ) :
 					?>
-<!--					<a class="featured-image-date --><?php //echo esc_attr( $show_date ); ?><!--" href="--><?php //echo esc_url( get_permalink() ); ?><!--" rel="bookmark" itemprop="mainEntityOfPage">-->
-<!--						<span itemprop="datePublished">--><?php //the_time( get_option( 'date_format' ) ); ?><!--</span>-->
-<!--					</a>-->
 					<a class="featured-image-date <?php echo esc_attr( $show_date ); ?>" href="<?php echo esc_url( get_permalink() ); ?>" rel="bookmark" itemprop="mainEntityOfPage">
 							<?php echo wp_kses(
 								exs_wrap_each_word_in_span(
@@ -1470,6 +1467,8 @@ if ( ! function_exists( 'exs_the_author' ) ) :
 	 */
 	function exs_the_author( $title_section_options = false ) {
 
+		$css_class = '';
+
 		//options
 		//single post
 		if ( is_singular() ) {
@@ -1480,6 +1479,11 @@ if ( ! function_exists( 'exs_the_author' ) ) :
 			$exs_author_word   = exs_option( $prefix . 'blog_single_before_author_word', '' );
 			$exs_show_icons    = ! exs_option( $prefix . 'blog_single_hide_meta_icons', false );
 
+			//new options since 1.9.5
+			$css_class .= exs_option( 'blog_single_meta_bold' ) ? ' fw-700' : '';
+			$css_class .= exs_option( 'blog_single_meta_uppercase' ) ? ' text-uppercase' : '';
+			$css_class .= exs_option( 'blog_single_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_single_meta_font_size' ) : '';
+
 			//blog loop
 		} else {
 
@@ -1488,11 +1492,21 @@ if ( ! function_exists( 'exs_the_author' ) ) :
 				$exs_author_avatar = exs_option( 'search_show_author_avatar', '' );
 				$exs_author_word   = exs_option( 'search_before_author_word', '' );
 				$exs_show_icons    = ! exs_option( 'search_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'search_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'search_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'search_meta_font_size' ) ? ' fs-' . (int) exs_option( 'search_meta_font_size' ) : '';
 			} else {
 				$exs_show_author   = exs_option( 'blog_show_author', true );
 				$exs_author_avatar = exs_option( 'blog_show_author_avatar', '' );
 				$exs_author_word   = exs_option( 'blog_before_author_word', '' );
 				$exs_show_icons    = ! exs_option( 'blog_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'blog_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'blog_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'blog_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_meta_font_size' ) : '';
 			}
 		}
 
@@ -1510,7 +1524,7 @@ if ( ! function_exists( 'exs_the_author' ) ) :
 				echo '</span><!-- .author-avatar-->';
 			endif; //$exs_author_avatar
 			?>
-			<span class="entry-author-wrap icon-inline">
+			<span class="entry-author-wrap icon-inline <?php echo esc_attr( $css_class ); ?>">
 			<?php
 			//icon
 			if ( ( ! empty( $exs_show_icons ) ) && empty( $exs_author_avatar ) ) {
@@ -1569,6 +1583,8 @@ if ( ! function_exists( 'exs_the_date' ) ) :
 	 */
 	function exs_the_date( $exs_human_diff = null, $title_section_options = false ) {
 
+		$css_class = '';
+
 		//options
 		//single post
 		if ( is_singular() ) {
@@ -1579,6 +1595,11 @@ if ( ! function_exists( 'exs_the_date' ) ) :
 			$exs_date_diff  = exs_option( $prefix . 'blog_single_show_human_date', '' );
 			$exs_show_icons = ! exs_option( $prefix . 'blog_single_hide_meta_icons', false );
 
+			//new options since 1.9.5
+			$css_class .= exs_option( 'blog_single_meta_bold' ) ? ' fw-700' : '';
+			$css_class .= exs_option( 'blog_single_meta_uppercase' ) ? ' text-uppercase' : '';
+			$css_class .= exs_option( 'blog_single_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_single_meta_font_size' ) : '';
+
 			//blog loop
 		} else {
 
@@ -1587,11 +1608,21 @@ if ( ! function_exists( 'exs_the_date' ) ) :
 				$exs_date_word  = exs_option( 'search_before_date_word', '' );
 				$exs_date_diff  = exs_option( 'search_show_human_date', '' );
 				$exs_show_icons = ! exs_option( 'search_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'search_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'search_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'search_meta_font_size' ) ? ' fs-' . (int) exs_option( 'search_meta_font_size' ) : '';
 			} else {
 				$exs_show_date  = exs_option( 'blog_show_date', true );
 				$exs_date_word  = exs_option( 'blog_before_date_word', '' );
 				$exs_date_diff  = exs_option( 'blog_show_human_date', '' );
 				$exs_show_icons = ! exs_option( 'blog_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'blog_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'blog_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'blog_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_meta_font_size' ) : '';
 			}
 		}
 
@@ -1606,7 +1637,7 @@ if ( ! function_exists( 'exs_the_date' ) ) :
 
 			//date-wrapper
 			?>
-			<span class="entry-date-wrap icon-inline">
+			<span class="entry-date-wrap icon-inline <?php echo esc_attr( $css_class ); ?>">
 			<?php
 
 			//icon
@@ -1656,6 +1687,8 @@ if ( ! function_exists( 'exs_the_categories' ) ) :
 
 	function exs_the_categories( $title_section_options = false ) {
 
+		$css_class = '';
+
 		//options
 		//single post
 		if ( is_singular() ) {
@@ -1665,6 +1698,11 @@ if ( ! function_exists( 'exs_the_categories' ) ) :
 			$exs_categories_word = exs_option( $prefix . 'blog_single_before_categories_word', '' );
 			$exs_show_icons      = ! exs_option( $prefix . 'blog_single_hide_meta_icons', false );
 
+			//new options since 1.9.5
+			$css_class .= exs_option( 'blog_single_meta_bold' ) ? ' fw-700' : '';
+			$css_class .= exs_option( 'blog_single_meta_uppercase' ) ? ' text-uppercase' : '';
+			$css_class .= exs_option( 'blog_single_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_single_meta_font_size' ) : '';
+
 			//blog loop
 		} else {
 
@@ -1672,10 +1710,20 @@ if ( ! function_exists( 'exs_the_categories' ) ) :
 				$exs_show_categories = exs_option( 'search_show_categories', false );
 				$exs_categories_word = exs_option( 'search_before_categories_word', '' );
 				$exs_show_icons      = ! exs_option( 'search_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'search_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'search_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'search_meta_font_size' ) ? ' fs-' . (int) exs_option( 'search_meta_font_size' ) : '';
 			} else {
 				$exs_show_categories = exs_option( 'blog_show_categories', false );
 				$exs_categories_word = exs_option( 'blog_before_categories_word', '' );
 				$exs_show_icons      = ! exs_option( 'blog_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'blog_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'blog_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'blog_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_meta_font_size' ) : '';
 			}
 
 
@@ -1689,7 +1737,7 @@ if ( ! function_exists( 'exs_the_categories' ) ) :
 
 				//categories-wrapper
 				?>
-				<span class="entry-categories-wrap icon-inline">
+				<span class="entry-categories-wrap icon-inline <?php echo esc_attr( $css_class ); ?>">
 				<?php
 
 				//icon
@@ -1727,6 +1775,8 @@ if ( ! function_exists( 'exs_the_tags' ) ) :
 	 */
 	function exs_the_tags( $exs_title_section = false) {
 
+		$css_class = '';
+
 		//options
 		//single post
 		if ( is_singular() ) {
@@ -1736,6 +1786,11 @@ if ( ! function_exists( 'exs_the_tags' ) ) :
 			$exs_tags_word  = exs_option( $prefix . 'blog_single_before_tags_word', '' );
 			$exs_show_icons = ! exs_option( $prefix . 'blog_single_hide_meta_icons', false );
 
+			//new options since 1.9.5
+			$css_class .= exs_option( 'blog_single_meta_bold' ) ? ' fw-700' : '';
+			$css_class .= exs_option( 'blog_single_meta_uppercase' ) ? ' text-uppercase' : '';
+			$css_class .= exs_option( 'blog_single_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_single_meta_font_size' ) : '';
+
 			//blog loop
 		} else {
 
@@ -1743,10 +1798,20 @@ if ( ! function_exists( 'exs_the_tags' ) ) :
 				$exs_show_tags  = exs_option( 'search_show_tags', false );
 				$exs_tags_word  = exs_option( 'search_before_tags_word', '' );
 				$exs_show_icons = ! exs_option( 'search_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'search_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'search_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'search_meta_font_size' ) ? ' fs-' . (int) exs_option( 'search_meta_font_size' ) : '';
 			} else {
 				$exs_show_tags  = exs_option( 'blog_show_tags', false );
 				$exs_tags_word  = exs_option( 'blog_before_tags_word', '' );
 				$exs_show_icons = ! exs_option( 'blog_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'blog_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'blog_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'blog_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_meta_font_size' ) : '';
 			}
 		}
 
@@ -1759,7 +1824,7 @@ if ( ! function_exists( 'exs_the_tags' ) ) :
 
 				//tags-wrapper
 				?>
-				<span class="entry-tags-wrap icon-inline">
+				<span class="entry-tags-wrap icon-inline <?php echo esc_attr( $css_class ); ?>">
 					<?php
 
 					//icon
@@ -1796,6 +1861,8 @@ if ( ! function_exists( 'exs_comment_count' ) ) :
 	 */
 	function exs_comment_count( $title_section_options = false  ) {
 
+		$css_class = '';
+
 		//options
 		//single post
 		if ( is_singular() ) {
@@ -1804,6 +1871,11 @@ if ( ! function_exists( 'exs_comment_count' ) ) :
 			$exs_show_comments = exs_option( $prefix . 'blog_single_show_comments_link', 'number' );
 			$exs_show_icons    = ! exs_option( $prefix . 'blog_single_hide_meta_icons', false );
 
+			//new options since 1.9.5
+			$css_class .= exs_option( 'blog_single_meta_bold' ) ? ' fw-700' : '';
+			$css_class .= exs_option( 'blog_single_meta_uppercase' ) ? ' text-uppercase' : '';
+			$css_class .= exs_option( 'blog_single_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_single_meta_font_size' ) : '';
+
 			//blog loop
 		} else {
 
@@ -1811,9 +1883,19 @@ if ( ! function_exists( 'exs_comment_count' ) ) :
 				$exs_show_comments = exs_option( 'search_show_comments_link', 'number' );
 				$exs_show_icons    = ! exs_option( 'search_hide_meta_icons', false );
 
+				//new options since 1.9.5
+				$css_class .= exs_option( 'search_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'search_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'search_meta_font_size' ) ? ' fs-' . (int) exs_option( 'search_meta_font_size' ) : '';
+
 			} else {
 				$exs_show_comments = exs_option( 'blog_show_comments_link', 'number' );
 				$exs_show_icons    = ! exs_option( 'blog_hide_meta_icons', false );
+
+				//new options since 1.9.5
+				$css_class .= exs_option( 'blog_meta_bold' ) ? ' fw-700' : '';
+				$css_class .= exs_option( 'blog_meta_uppercase' ) ? ' text-uppercase' : '';
+				$css_class .= exs_option( 'blog_meta_font_size' ) ? ' fs-' . (int) exs_option( 'blog_meta_font_size' ) : '';
 			}
 		}
 
@@ -1821,7 +1903,7 @@ if ( ! function_exists( 'exs_comment_count' ) ) :
 			switch ( $exs_show_comments ) :
 				case 'number':
 					?>
-					<span class="comments-link icon-inline">
+					<span class="comments-link icon-inline <?php echo esc_attr( $css_class ); ?>">
 					<?php
 					if ( ! empty( $exs_show_icons ) ) {
 						exs_icon( 'comment-outline' );
@@ -1835,7 +1917,7 @@ if ( ! function_exists( 'exs_comment_count' ) ) :
 				//text
 				default:
 					?>
-					<span class="comments-link icon-inline">
+					<span class="comments-link icon-inline <?php echo esc_attr( $css_class ); ?>">
 					<?php
 
 					if ( ! empty( $exs_show_icons ) ) {
@@ -2372,16 +2454,28 @@ if ( ! function_exists( 'exs_related_posts' ) ) :
 				);
 			}
 
-			$hidden_class = exs_option( 'blog_single_related_posts_hidden', '' );
-			$show_date = exs_option( 'blog_single_related_show_date', '' );
-			$readmore_text = exs_option( 'blog_single_related_posts_readmore_text', '' );
-			$image_size = exs_option( 'blog_single_related_posts_image_size', '' );
-
 			$exs_query = new WP_Query( $exs_args );
 			if ( $exs_query->have_posts() ) :
 				$exs_related_title = exs_option( 'blog_single_related_posts_title', esc_html__( 'Related Posts', 'exs' ) );
+
+				$hidden_class  = exs_option( 'blog_single_related_posts_hidden', '' );
+				$show_date     = exs_option( 'blog_single_related_show_date', '' );
+				$readmore_text = exs_option( 'blog_single_related_posts_readmore_text', '' );
+				$image_size    = exs_option( 'blog_single_related_posts_image_size', '' );
+				//new since v1.9.5
+				$mt        = exs_option( 'blog_single_related_posts_mt' );
+				$mb        = exs_option( 'blog_single_related_posts_mb' );
+				$bg        = exs_option( 'blog_single_related_posts_background' );
+				$section   = exs_option( 'blog_single_related_posts_section' ) ? 'section' : '';
+				if ( $bg && ! $section ) {
+					$bg .= ' extra-padding';
+				}
+				$pt        = exs_option( 'blog_single_related_posts_pt' );
+				$pb        = exs_option( 'blog_single_related_posts_pb' );
+				$alignfull = exs_option( 'blog_single_related_posts_fullwidth' ) ? 'alignfull' : '';
+
 				?>
-				<div class="related-posts <?php echo esc_attr( $hidden_class ); ?>">
+				<div class="related-posts <?php echo esc_attr( $hidden_class . ' ' . $mt . ' ' . $mb . ' ' . $bg . ' ' . $section . ' ' . $pt . ' ' . $pb . ' ' . $alignfull ); ?>">
 					<?php if ( ! empty( $exs_related_title ) ) : ?>
 						<h3 class="related-posts-heading"><?php echo esc_html( $exs_related_title ); ?></h3>
 						<?php

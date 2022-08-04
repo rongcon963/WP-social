@@ -12,8 +12,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
+$args = ! empty( $args ) ? $args : array();
+$columns = ! empty( $args['columns'] );
 
+if ( $columns ) :
 ?>
+<div class="grid-item">
+<?php endif; //columns ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'text-center' ); ?> itemtype="https://schema.org/Article" itemscope="itemscope">
 	<?php
 	exs_post_thumbnail();
@@ -62,3 +67,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	</div><!-- .item-content -->
 </article><!-- #post-<?php the_ID(); ?> -->
+<?php if ( $columns ) : ?>
+</div><!--.grid-item-->
+<?php endif; //columns ?>

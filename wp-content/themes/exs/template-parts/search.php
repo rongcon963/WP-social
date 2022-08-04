@@ -16,11 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $exs_show_title = exs_get_feed_shot_title();
-$exs_layout     = exs_option( 'search_layout', '' ) ? exs_option( 'search_layout', '' ) : 'default';;
-$exs_layout_gap = exs_option( 'search_layout_gap', '' ) ? exs_option( 'search_layout_gap', '' ) : '';;
+$exs_layout     = exs_option( 'search_layout', '' ) ? exs_option( 'search_layout', '' ) : 'default';
+$exs_layout_gap = exs_option( 'search_layout_gap', '' ) ? exs_option( 'search_layout_gap', '' ) : '';
+
+//layout may contain columns count separated by space and 'masonry' word after columns count
+$exs_layout         = explode( ' ', $exs_layout );
+$exs_columns_number = ( ! empty( $exs_layout[1] ) ) ? absint( $exs_layout[1] ) : '';
+$exs_masonry        = ( ! empty( $exs_layout[2] ) && 'masonry' === $exs_layout[2] ) ? true : false;
+$exs_grid_class     = ( ! empty( $exs_masonry ) ) ? 'masonry' : 'grid-wrapper';
+$exs_layout         = $exs_layout[0];
+$exs_columns        = ( ! empty( $exs_columns_number ) ) ? true : false;
 
 //additional css classes for #layout div element
 $exs_layout_class  = 'layout-' . $exs_layout;
+$exs_layout_class .= ! empty( $exs_columns ) ? ' layout-cols-' . $exs_columns_number : ' layout-cols-1';
+$exs_layout_class .= ! empty( $exs_layout_gap ) ? ' layout-gap-' . $exs_layout_gap : ' layout-gap-default';
 
 if ( ! empty( $exs_masonry ) ) {
 	wp_enqueue_script( 'masonry', '', array( 'imagesloaded' ), '', true );
@@ -44,10 +54,26 @@ $exs_layout = file_exists( EXS_THEME_PATH . '/template-parts/blog/' . $exs_layou
 		<?php
 		if ( have_posts() ) {
 
+			if ( ! empty( $exs_columns ) ) :
+				// read about masonry layout here:
+				// https://masonry.desandro.com/options.html
+				// https://github.com/desandro/masonry/issues/549
+				?>
+				<div class="grid-columns-wrapper">
+				<div class="<?php echo esc_attr( $exs_grid_class ); ?>">
+				<div class="grid-sizer"></div>
+			<?php
+			endif; //columns
+
 			// Load posts loop.
 			while ( have_posts() ) :
 				the_post();
 				if ( 'product' === get_post_type() && function_exists( 'wc_get_template' ) ) :
+
+					if ( ! empty( $exs_columns ) ) :
+						echo '<div class="grid-item">';
+					endif;
+
 					?>
 					<div class="woo woocommerce columns-1">
 						<ul class="products search-results">
@@ -57,9 +83,16 @@ $exs_layout = file_exists( EXS_THEME_PATH . '/template-parts/blog/' . $exs_layou
 						</ul>
 					</div>
 				<?php
+					if ( ! empty( $exs_columns ) ) :
+						echo '</div>';
+					endif;
 				elseif ( 'job_listing' === get_post_type() && function_exists( 'job_listing_class' ) ) :
 
 					global $post;
+
+					if ( ! empty( $exs_columns ) ) :
+						echo '<div class="grid-item">';
+					endif;
 					?>
 					<article>
 						<ul class="job_listings">
@@ -95,8 +128,14 @@ $exs_layout = file_exists( EXS_THEME_PATH . '/template-parts/blog/' . $exs_layou
 						</ul>
 					</article>
 				<?php
+					if ( ! empty( $exs_columns ) ) :
+						echo '</div>';
+					endif;
 
 				elseif ( 'jobpost' === get_post_type() && class_exists( 'Simple_Job_Board' ) ) :
+					if ( ! empty( $exs_columns ) ) :
+						echo '<div class="grid-item">';
+					endif;
 					?>
 					<article class="sjb-page entry-content">
 						<?php
@@ -104,10 +143,16 @@ $exs_layout = file_exists( EXS_THEME_PATH . '/template-parts/blog/' . $exs_layou
 						?>
 					</article><!-- .sjb-page -->
 				<?php
+					if ( ! empty( $exs_columns ) ) :
+						echo '</div>';
+					endif;
 				//regular post //exclude special categories
 				elseif ( 'post' === get_post_type() && ! in_category( $exs_special_cats, get_the_ID() ) ):
 					get_template_part( 'template-parts/blog/' . $exs_layout . '/content' );
 				else :
+					if ( ! empty( $exs_columns ) ) :
+						echo '<div class="grid-item">';
+					endif;
 					?>
 					<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 						<?php
@@ -129,8 +174,18 @@ $exs_layout = file_exists( EXS_THEME_PATH . '/template-parts/blog/' . $exs_layou
 						?>
 					</article><!-- #post-<?php the_ID(); ?> -->
 				<?php
+					if ( ! empty( $exs_columns ) ) :
+						echo '</div>';
+					endif;
 				endif;
 			endwhile;
+
+			if ( ! empty( $exs_columns ) ) :
+				?>
+				</div><!-- .<?php echo esc_html( $exs_grid_class ); ?>-->
+				</div><!-- .grid-columns-wrapper -->
+			<?php
+			endif; //columns
 
 			// Previous/next page navigation.
 			the_posts_pagination(

@@ -512,14 +512,14 @@ class Youzify_Membership_Form {
 					'key'	=> 'login',
 					'item' 	=> 'hidden',
 					'name'	=> 'rp_login',
-					'value'	=> isset( $_GET['login'] ) ? $_GET['login'] : ''
+					'value'	=> isset( $_GET['login'] ) ? sanitize_text_field( $_GET['login'] ) : ''
 				);
 
 				$fields[] = array(
 					'item' 	=> 'hidden',
 					'name'	=> 'rp_key',
 					'key'	=> 'key',
-					'value'	=> isset( $_GET['key'] ) ? $_GET['key'] : ''
+					'value'	=> isset( $_GET['key'] ) ? sanitize_text_field( $_GET['key'] ) : ''
 				);
 
 				$fields[] = array(

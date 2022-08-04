@@ -87,7 +87,11 @@ class Youzify_Fields {
 
 		}
 
+		do_action( 'youzify_before_field_item', $option );
+
 		$this->get_item( $options_name, $is_user, $option, $real_value );
+
+		do_action( 'youzify_after_field_item', $option );
 
 		// Close Option Divs
 		if ( ! in_array( $option['type'], $forbidden_types ) ) {
@@ -746,7 +750,6 @@ class Youzify_Fields {
 		break;
 
 		endswitch;
-
 	}
 
 	/**

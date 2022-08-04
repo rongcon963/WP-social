@@ -1206,14 +1206,11 @@ class Youzify_Admin {
 				continue;
 			}
 
- 			// Add Tab ID to url.
-			$tab_url = add_query_arg( 'tab', $key, $current_url );
-
 			// Get Tab Class Name.
 			$class = isset( $tab['class'] ) ? 'class="youzify-active-tab"' : null; ?>
 
 			<li>
-				<a href="<?php echo $tab_url; ?>" <?php echo $class; ?>><i class="<?php echo $tab['icon']; ?>"></i><?php echo $tab['title']; ?></a>
+				<a href="<?php echo esc_url( add_query_arg( 'tab', $key, $current_url ) ); ?>" <?php echo $class; ?>><i class="<?php echo $tab['icon']; ?>"></i><?php echo $tab['title']; ?></a>
 			</li>
 
 			<?php
@@ -1859,7 +1856,7 @@ class Youzify_Admin {
 	        	<?php // youzify_offer_banner( true ); ?>
 	        <!-- </div> -->
 	        <div class="updated notice">
-        <a class="yzp-cancel-changelog"  href="<?php echo add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ); ?>"><span style="color:#000;" class="dashicons dashicons-no-alt"></span></a>
+        <a class="yzp-cancel-changelog"  href="<?php echo esc_url( add_query_arg( 'youzify-dismiss-offer-notice', $id, youzify_get_current_page_url() ) ); ?>"><span style="color:#000;" class="dashicons dashicons-no-alt"></span></a>
 	            <div class="youzify-log-message">
 	                <div class="youzify-logs">
 	                	<?php foreach( $logs as $log ) : ?>

@@ -36,6 +36,10 @@ function youzify_gamipress_get_user_balance_box( $user_id = null , $title = null
 					// Get Rank ID.
 					$current_rank_id = gamipress_get_user_rank_id( $user_id, $rank_type );
 
+					if ( $current_rank_id == 0 ) {
+						continue;
+					}
+
 					// Get Rank Post.
 					$rank = gamipress_get_post( $current_rank_id );
 

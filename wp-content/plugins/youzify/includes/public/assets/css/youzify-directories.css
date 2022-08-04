@@ -202,13 +202,14 @@
     margin-right: 12px;
 }
 
-
-.youzify-search-input-with-dropdown input[type='search']{-webkit-appearance:textfield}
+.youzify-search-input-with-dropdown input[type='search']{
+    width: 100%;
+    -webkit-appearance:textfield;
+}
 
 .youzify-search-input-with-dropdown input[type="search"]::-webkit-search-decoration {
     -webkit-appearance: none;
 }
-
 
 .youzify-search-input-with-dropdown .youzify-search-input {
     padding: 0;

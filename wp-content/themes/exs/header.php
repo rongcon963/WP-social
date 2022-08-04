@@ -77,6 +77,11 @@ $exs_box_fade_in_class = exs_option( 'box_fade_in', '' ) ? 'box-fade-in' : 'box-
 			$exs_extra_padding_top    = 'pt-0';
 			$exs_extra_padding_bottom = 'pb-0';
 		}
+
+		//no bottom padding if singular post and comments are in separate section
+		if ( is_singular( 'post') && exs_option( 'blog_single_comments_section' ) ){
+			$exs_extra_padding_bottom = 'pb-0';
+		}
 		?>
 	<div id="main" class="main <?php echo esc_attr( 'sidebar-' . $exs_main_sidebar_width . ' sidebar-gap-' . $exs_main_gap_width . ' ' . $exs_main_css_classes ); ?>">
 		<div class="container <?php echo esc_attr( $exs_extra_padding_top . ' ' . $exs_extra_padding_bottom ); ?>">

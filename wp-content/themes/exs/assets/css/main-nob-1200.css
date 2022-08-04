@@ -135,7 +135,7 @@ Table of contents
 	margin-right: 4px;
 }
 
-.entry-footer .icon-inline{
+.entry-footer .icon-inline:not([class*=fs-]){
 	align-items: flex-start;
 }
 
@@ -2525,6 +2525,7 @@ div.cats-pills-first a:first-child{
 
 .content-absolute .overlap-content a{
 	color: #fff;
+	pointer-events: initial;
 }
 
 .content-absolute .overlap-content a:hover{
@@ -3517,6 +3518,12 @@ a.header-button{
 	}
 }
 
+#bottom-wrap[style] .footer-top,
+#bottom-wrap[style] .footer,
+#bottom-wrap[style] .copyright{
+	background-color: transparent;
+}
+
 #to-top{
 	position: fixed;
 	right: 0;
@@ -4325,6 +4332,14 @@ ul a:not([href]):empty{
 	bottom: 15px;
 }
 
+.btns-round .post-thumbnail .featured-image-date{
+	border-radius: 50px;
+}
+
+.btns-rounded .post-thumbnail .featured-image-date{
+	border-radius: 6px;
+}
+
 .post-thumbnail .featured-image-categories{
 	line-height: 1;
 	position: absolute;
@@ -4362,6 +4377,14 @@ ul a:not([href]):empty{
 .post-thumbnail .featured-image-categories a:hover{
 	background-color: var(--colorMain);
 	color: #fff;
+}
+
+.btns-round .post-thumbnail .featured-image-categories a{
+	border-radius: 50px;
+}
+
+.btns-rounded .post-thumbnail .featured-image-categories a{
+	border-radius: 6px;
 }
 
 .post-thumbnail-inner:focus{
@@ -4638,7 +4661,8 @@ ul a:not([href]):empty{
 }
 
 .related-posts{
-	margin: 3em 0;
+	margin-top: 3em;
+	margin-bottom: 3em;
 }
 
 .related-posts h5{

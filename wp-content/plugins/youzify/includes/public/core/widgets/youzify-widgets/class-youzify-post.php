@@ -9,6 +9,7 @@ class Youzify_Profile_Post_Widget {
 
         // Get User ID
         $user_id = bp_displayed_user_id();
+
         // Get Post ID
         $post_id = get_the_author_meta( 'youzify_wg_post_id', $user_id );
 
@@ -29,11 +30,13 @@ class Youzify_Profile_Post_Widget {
          // Show / Hide Post Elements
         $display_icons = youzify_option( 'youzify_display_wg_post_meta_icons', 'on' );
 
+        $post_widget_img_size = apply_filters( 'youzify_post_widget_thumbnail_size', 'medium' );
+
         ?>
 
         <div class="youzify-post-content">
 
-            <?php youzify_get_post_thumbnail( array( 'attachment_id' => get_post_thumbnail_id( $post_id ), 'size' => 'medium', 'element' => 'profile-post-widget' ) ); ?>
+            <?php youzify_get_post_thumbnail( array( 'attachment_id' => get_post_thumbnail_id( $post_id ), 'size' => $post_widget_img_size, 'element' => 'profile-post-widget' ) ); ?>
 
             <div class="youzify-post-container">
 

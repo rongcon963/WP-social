@@ -119,12 +119,10 @@ class Content
                 'Windows-1251', 'Windows-1252', 'Windows-1254', 'Windows-1256'
             );
 
-            $encoding_check = function_exists( 'mb_detect_encoding' ) ? mb_detect_encoding( $contents, $list, true ) : false;
-            $encoding = ($encoding_check === false) ? "UTF-8" : $encoding_check;
-
+            // $encoding_check = function_exists( 'mb_detect_encoding' ) ? mb_detect_encoding( $contents, $list, true ) : false;
+            // $encoding = ($encoding_check === false) ? "UTF-8" : $encoding_check;
+            $encoding = 'UTF-8';
             $metaTags = Content::getMetaTagsEncoding($contents, $encoding);
-            // echo $contents;
-
             $result = $metaTags;
         }
 
